@@ -21,7 +21,16 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('welcome_message');
 	}
+	public function regist()
+	{
+		$this->load->view('regist');
+	}
+	public function contribute()
+	{
+		$this->load->view('contribute');
+	}
 }
+
 
 /* End of file welcome.php */
 /* Location: ./application/controllers/welcome.php */
