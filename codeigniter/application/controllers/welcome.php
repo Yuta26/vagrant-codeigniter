@@ -29,12 +29,6 @@ class Welcome extends CI_Controller {
 	{		
 		$this->load->view('regist');
 	}
-
-	// ツイート画面view
-	public function contribute()
-	{
-		$this->load->view('contribute');
-	}
 }
 
 

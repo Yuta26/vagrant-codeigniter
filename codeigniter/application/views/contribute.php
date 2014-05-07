@@ -32,26 +32,20 @@
 		<input type="submit" value="ツイート">
 		</form>
 		</br>
-		<div class="wrapper">
-			<div id="left">ゆうた</div>
-			<div id="right">１時間前</div>
-			<p class="tweet-sentence">kyohgiewgaoiebaifeafafeafaefaefaefaefaefaefaefafaefoebaroinirnrionarni;a</p>
-		</div>
-		<div class="wrapper">
-			<div id="left">ゆうた</div>
-			<div id="right">１時間前</div>
-			<p class="tweet-sentence">kyohgiewgaoiebaifeafafeafaefaefaefaefaefaefaefafaefoebaroinirnrionarni;a</p>
-		</div>
-		<div class="wrapper">
-			<div id="left">ゆうた</div>
-			<div id="right">１時間前</div>
-			<p class="tweet-sentence">kyohgiewgaoiebaifeafafeafaefaefaefaefaefaefaefafaefoebaroinirnrionarni;a</p>
-		</div>
-		<div class="wrapper">
-			<div id="left">ゆうた</div>
-			<div id="right">１時間前</div>
-			<p class="tweet-sentence">kyohgiewgaoiebaifeafafeafaefaefaefaefaefaefaefafaefoebaroinirnrionarni;a</p>
-		</div>
+		<!-- データベースからデータ取得 -->
+		<?php foreach ($tweet as $tweet_item):?>
+			<div class="wrapper">
+				<div id="left">
+					<?php echo $tweet_item['name'] ?>
+				</div>
+				<div id='right'>
+					<?php echo $tweet_item['create_tweet'] ?>
+				</div>
+				<p class="tweet-sentence">
+					<?php echo $tweet_item['cotent'] ?>
+				</p>
+			</div>
+		<?php endforeach ?>
 		</br>
 		<input type="button" value="もっと見る">
 	</div>
