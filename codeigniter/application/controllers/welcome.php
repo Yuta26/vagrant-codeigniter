@@ -18,6 +18,12 @@ class Welcome extends CI_Controller {
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
 
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('regist_model');
+	}
+
 	//　ログイン画面view
 	public function index()
 	{
@@ -26,8 +32,22 @@ class Welcome extends CI_Controller {
 
 	// 会員登録画面view
 	public function regist()
-	{		
-		$this->load->view('regist');
+	{
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('name', '名前', 'required');
+		$this->form_validation->set_rules('adress', 'メールアドレス', 'required');
+		$this->form_validation->set_rules('password', 'パスワード', 'required');
+
+		if ($this->form_validation->run() === FALSE)
+		{
+			$this->load->view('regist');
+		}
+		else
+		{
+			$this->regist_model->set_user();
+			$this->load->view('login');
+		}
 	}
 }
 
