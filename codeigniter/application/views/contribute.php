@@ -32,7 +32,6 @@
 		<input type="submit" value="ツイート">
 		</form>
 		</br>
-		<!-- データベースからデータ取得 -->
 		<?php foreach ($tweet as $tweet_item):?>
 			<div class="wrapper">
 				<div id="left">
@@ -42,7 +41,7 @@
 					<?php echo $tweet_item['create_tweet'] ?>
 				</div>
 				<p class="tweet-sentence">
-					<?php echo $tweet_item['cotent'] ?>
+					<?php echo $tweet_item['content'] ?>
 				</p>
 			</div>
 		<?php endforeach ?>

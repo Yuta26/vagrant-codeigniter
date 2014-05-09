@@ -22,12 +22,31 @@ class Welcome extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('regist_model');
+		$this->load->model('tweet_model');
 	}
 
 	//　ログイン画面view
 	public function index()
 	{
-		$this->load->view('login');
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('adress', 'メールアドレス', 'required');
+		$this->form_validation->set_rules('password', 'パスワード', 'required');
+		if ($this->form_validation->run() === FALSE)
+		{
+			$this->load->view('login');
+		}
+		else
+		{
+			$adress = $_POST['adress'];
+			$pass = $_POST['password'];
+			$login = $this->regist_model->login_user($adress, $pass);
+			if ($login == 'TRUE')
+			{
+				$data['tweet'] = $this->tweet_model->get_tweet();
+				$this->load->view('contribute',$data);
+			}
+		}
 	}
 
 	// 会員登録画面view
@@ -44,7 +63,7 @@ class Welcome extends CI_Controller {
 			$this->load->view('regist');
 		}
 		else
-		{
+		{ 
 			$this->regist_model->set_user();
 			$this->load->view('login');
 		}
