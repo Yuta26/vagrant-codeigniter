@@ -26,8 +26,10 @@
 </head>
 <body>
 	<div id="container">
-		<form method="post" action="example02.php">
-		<textarea name="kanso" rows="4" cols="40"></textarea>
+		<?php echo validation_errors(); ?>
+		<?php echo form_open('tweet/index'); ?>
+
+		<textarea name="content" rows="4" cols="40"></textarea>
 		</br>
 		<input type="submit" value="ツイート">
 		</form>
