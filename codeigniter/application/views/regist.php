@@ -7,7 +7,7 @@
 <body>
 	<div id="container">
 		<?php echo validation_errors(); ?>
-		<?php echo form_open('welcome/regist') ?>
+		<?php echo form_open('welcome/regist'); ?>
 
 		<label for="name">名前</label>
 		<input type="input" name="name" /><br />

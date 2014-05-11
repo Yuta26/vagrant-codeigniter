@@ -46,6 +46,11 @@ class Welcome extends CI_Controller {
 				$data['tweet'] = $this->tweet_model->get_tweet();
 				$this->load->view('contribute',$data);
 			}
+			else
+			{
+				echo 'メールアドレスとパスワードが一致しません';
+				$this->load->view('login');
+			}
 		}
 	}
 
