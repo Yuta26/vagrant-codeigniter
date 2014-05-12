@@ -5,6 +5,7 @@ class Tweet_model extends CI_Model {
 	{
 		$this->load->database();
 	}
+
 	public function get_tweet()
 	{
 		$this->load->library('session');
@@ -12,10 +13,9 @@ class Tweet_model extends CI_Model {
 		$adress = $data['adress'];
 		$query = $this->db->get_where('tweet',array('adress' => $adress),10);
 		return $query->result_array();
-
 	}
 
-	public function set_tweet()
+	public function set_tweet($content)
 	{
 		$this->load->library('session');
 		$this->load->helper('url');
@@ -31,7 +31,7 @@ class Tweet_model extends CI_Model {
 
 		$data = array(
 			'create_tweet' => $create_at,
-			'content' => $this->input->post('content'),
+			'content' => $content,
 			'name' => $name,
 			'adress' => $adress
 		);

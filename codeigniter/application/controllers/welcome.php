@@ -40,7 +40,7 @@ class Welcome extends CI_Controller {
 		else
 		{
 			$data = $this->session->all_userdata();
-			$adress = $_POST['adress'];
+			$adress = $this->input->post('adress');
 			$pass = $_POST['password'];
 			$login = $this->regist_model->login_user($adress, $pass);
 			if ($login == 'TRUE')
@@ -61,6 +61,7 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->library('session');
 		$data = $this->session->all_userdata();
+
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('name', '名前', 'required');
@@ -73,8 +74,12 @@ class Welcome extends CI_Controller {
 		}
 		else
 		{ 
-			$this->regist_model->set_user();
-			$this->load->view('login');
+			$adress = $_POST['adress'];
+			$pass = $_POST['password'];
+			$name = $_POST['name'];
+			$this->regist_model->set_user($name, $adress, $pass);
+			$data['tweet'] = $this->tweet_model->get_tweet();
+			$this->load->view('contribute',$data);
 		}
 	}
 }

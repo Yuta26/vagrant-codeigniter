@@ -10,7 +10,6 @@ class Tweet extends CI_Controller {
 	public function index()
 	{
 		$this->load->library('session');
-		$data['session'] = $this->session->all_userdata();
 		$this->load->helper('url');
 		$this->load->helper('form');
 		$this->load->library('form_validation');
@@ -23,7 +22,7 @@ class Tweet extends CI_Controller {
 		else
 		{
 			$content = $_POST['content'];
-			$this->tweet_model->set_tweet();
+			$this->tweet_model->set_tweet($content);
 			$this->tweet_model->get_tweet();
 			$this->load->view('contribute',$data);
 		}
