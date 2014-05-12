@@ -41,7 +41,7 @@ class Welcome extends CI_Controller {
 		{
 			$data = $this->session->all_userdata();
 			$adress = $this->input->post('adress');
-			$pass = $_POST['password'];
+			$pass = $this->input->post('password');
 			$login = $this->regist_model->login_user($adress, $pass);
 			if ($login == 'TRUE')
 			{
@@ -74,10 +74,11 @@ class Welcome extends CI_Controller {
 		}
 		else
 		{ 
-			$adress = $_POST['adress'];
-			$pass = $_POST['password'];
-			$name = $_POST['name'];
+			$adress = $this->input->post('adress');
+			$pass = $this->input->post('password');
+			$name = $this->input->post('name');
 			$this->regist_model->set_user($name, $adress, $pass);
+			
 			$data['tweet'] = $this->tweet_model->get_tweet();
 			$this->load->view('contribute',$data);
 		}

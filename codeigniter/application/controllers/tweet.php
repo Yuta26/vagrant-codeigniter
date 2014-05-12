@@ -21,7 +21,7 @@ class Tweet extends CI_Controller {
 		}
 		else
 		{
-			$content = $_POST['content'];
+			$content = $this->input->post('content');
 			$this->tweet_model->set_tweet($content);
 			$this->tweet_model->get_tweet();
 			$this->load->view('contribute',$data);
@@ -30,11 +30,14 @@ class Tweet extends CI_Controller {
 
 	public function logout()
 	{
-		echo "aaa";
+		$this->load->library('session');
 		$this->load->helper('url');
 		$this->load->helper('form');
-		$data = $this->session->all_userdata();
-		$this->session->sess_destroy();
-		$this->load->view('login');
+		$flag = $this->input->post('flag');
+		if ($flag === '1')
+		{
+			$this->session->sess_destroy();
+			$this->load->view('login');
+		}
 	}
 }

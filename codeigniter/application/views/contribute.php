@@ -26,10 +26,16 @@
 </head>
 <body>
 	<div id="container">
-		<?php echo validation_errors(); ?>
-		<?php echo form_open('tweet/index'); ?>
 
-		<input type="button" name="logout" value="ログアウト" onclick="tweet/logout">
+		<!-- ログアウトボタンの実装 -->
+		<?php echo validation_errors(); ?>
+		<?php echo form_open('tweet/logout'); ?>
+		<input type="hidden" name="flag" value="1">
+		<input type="submit" value="ログアウト">
+		</form>
+
+		<!-- ツイート機能の実装 -->
+		<?php echo form_open('tweet/index'); ?>
 		<?php echo '</br>'; ?>
 		<textarea name="content" rows="4" cols="40"></textarea>
 		</br>
