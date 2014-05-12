@@ -20,7 +20,6 @@
 			margin-right: 300px;
 		}
 		.tweet-sentence{
-
 		}
 	</style>
 </head>

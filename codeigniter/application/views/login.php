@@ -6,13 +6,15 @@
 </head>
 <body>
 	<div id="container">
+		<?php echo validation_errors(); ?>
 		<?php echo form_open('login/index') ?>
-			<label for="name">メールアドレス</label>
-			<input type="input" name="adress" /><br />
-
-			<label for="password">パスワード</label>
-			<input type="password" name="password" /><br />
-			<input type="submit" name="submit" value="ログイン" />
+			<label>メールアドレス</label>
+			<?php echo form_input('adress'); ?>
+			<br />
+			<label>パスワード</label>
+			<?php echo form_password('password'); ?>
+			<br />
+			<?php echo form_submit('','ログイン'); ?>
 		</form>
 		<a href="http://vagrant-codeigniter.local/index.php/regist/index">ユーザ登録情報はこちら</a>
  	</div>

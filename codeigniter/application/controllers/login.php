@@ -15,29 +15,40 @@ class Login extends CI_Controller {
 		$this->load->library('session');
 		$this->load->helper('form');
 		$this->load->library('form_validation');
+		$this->load->helper('email');
 
-		// 各入力フォームのバリデーションチェック
 		$this->form_validation->set_rules('adress', 'メールアドレス', 'required');
 		$this->form_validation->set_rules('password', 'パスワード', 'required');
-		if ($this->form_validation->run() === FALSE)
-		{
-			$this->load->view('login');
-		}
-		else
-		{
-			$adress = $this->input->post('adress');
-			$pass = $this->input->post('password');
-			$login = $this->login_model->login_user($adress, $pass);
-			if ($login == 'TRUE')
+
+			if ($this->form_validation->run() === FALSE)
 			{
-				$data['tweet'] = $this->tweet_model->get_tweet();
-				$this->load->view('contribute',$data);
+				$this->load->view('login');
 			}
 			else
 			{
-				echo 'メールアドレスとパスワードが一致しません';
-				$this->load->view('login');
-			}
+				if((valid_email($this->input->post('adress'))) === FALSE)
+				{
+					echo 'メールアドレスを正しく入力してください';
+					echo '</br>';
+					$this->load->view('login');
+				}
+				else
+				{
+
+					$adress = $this->input->post('adress');
+					$pass = $this->input->post('password');
+					$login = $this->login_model->login_user($adress, $pass);
+					if ($login == 'TRUE')
+					{
+						$data['tweet'] = $this->tweet_model->get_tweet();
+						$this->load->view('contribute',$data);
+					}
+					else
+					{
+						echo 'メールアドレスとパスワードが一致しません';
+							$this->load->view('login');
+					}
+				}
 		}
 	}
 }
