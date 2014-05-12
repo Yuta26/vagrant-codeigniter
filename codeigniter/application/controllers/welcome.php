@@ -28,6 +28,7 @@ class Welcome extends CI_Controller {
 	//　ログイン画面view
 	public function index()
 	{
+		$this->load->library('session');
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('adress', 'メールアドレス', 'required');
@@ -38,6 +39,7 @@ class Welcome extends CI_Controller {
 		}
 		else
 		{
+			$data = $this->session->all_userdata();
 			$adress = $_POST['adress'];
 			$pass = $_POST['password'];
 			$login = $this->regist_model->login_user($adress, $pass);
@@ -57,6 +59,8 @@ class Welcome extends CI_Controller {
 	// 会員登録画面view
 	public function regist()
 	{
+		$this->load->library('session');
+		$data = $this->session->all_userdata();
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('name', '名前', 'required');

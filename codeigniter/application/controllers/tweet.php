@@ -9,6 +9,8 @@ class Tweet extends CI_Controller {
 
 	public function index()
 	{
+		$this->load->library('session');
+		$data['session'] = $this->session->all_userdata();
 		$this->load->helper('url');
 		$this->load->helper('form');
 		$this->load->library('form_validation');
@@ -18,7 +20,6 @@ class Tweet extends CI_Controller {
 		{
 			$this->load->view('contribute',$data);
 		}
-		//echo var_export($data['tweet'], true);
 		else
 		{
 			$content = $_POST['content'];
@@ -26,5 +27,15 @@ class Tweet extends CI_Controller {
 			$this->tweet_model->get_tweet();
 			$this->load->view('contribute',$data);
 		}
+	}
+
+	public function logout()
+	{
+		echo "aaa";
+		$this->load->helper('url');
+		$this->load->helper('form');
+		$data = $this->session->all_userdata();
+		$this->session->sess_destroy();
+		$this->load->view('login');
 	}
 }

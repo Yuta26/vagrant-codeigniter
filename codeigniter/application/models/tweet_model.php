@@ -7,21 +7,33 @@ class Tweet_model extends CI_Model {
 	}
 	public function get_tweet()
 	{
-		$query = $this->db->get('tweet');
+		$this->load->library('session');
+		$data = $this->session->all_userdata();
+		$adress = $data['adress'];
+		$query = $this->db->get_where('tweet',array('adress' => $adress),10);
 		return $query->result_array();
+
 	}
 
 	public function set_tweet()
 	{
+		$this->load->library('session');
 		$this->load->helper('url');
 		$this->load->helper('date');
+
 		$format = 'DATE_ATOM';
 		$time = time();
 		$create_at = standard_date($format, $time); 
 
+		$data = $this->session->all_userdata();
+		$name = $data['name'];
+		$adress = $data['adress'];
+
 		$data = array(
 			'create_tweet' => $create_at,
-			'content' => $this->input->post('content')
+			'content' => $this->input->post('content'),
+			'name' => $name,
+			'adress' => $adress
 		);
 		return $this->db->insert('tweet',$data);
 	}

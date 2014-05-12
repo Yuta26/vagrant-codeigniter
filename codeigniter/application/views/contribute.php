@@ -29,6 +29,8 @@
 		<?php echo validation_errors(); ?>
 		<?php echo form_open('tweet/index'); ?>
 
+		<input type="button" name="logout" value="ログアウト" onclick="tweet/logout">
+		<?php echo '</br>'; ?>
 		<textarea name="content" rows="4" cols="40"></textarea>
 		</br>
 		<input type="submit" value="ツイート">
