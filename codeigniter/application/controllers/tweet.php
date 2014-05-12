@@ -23,7 +23,7 @@ class Tweet extends CI_Controller {
 		{
 			$content = $this->input->post('content');
 			$this->tweet_model->set_tweet($content);
-			$this->tweet_model->get_tweet();
+			$data['tweet'] = $this->tweet_model->get_tweet();
 			$this->load->view('contribute',$data);
 		}
 	}
