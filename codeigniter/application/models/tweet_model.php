@@ -12,9 +12,11 @@ class Tweet_model extends CI_Model {
 		$data = $this->session->all_userdata();
 		$query = $this->db->get_where('user',array('adress' => $data['adress']));
 		$db_adress = $query->result_array();
-		if($db_adress ==  TRUE){
+		if($db_adress == TRUE)
+		{
 			return TRUE;
-		}else return;
+		}
+		else return;
 	}
 
 	public function get_tweet()
@@ -22,6 +24,7 @@ class Tweet_model extends CI_Model {
 		$this->load->library('session');
 		$data = $this->session->all_userdata();
 		$adress = $data['adress'];
+		// ログインアドレスの投稿ツイートを１０件取得
 		$query = $this->db->get_where('tweet',array('adress' => $adress),10);
 		return $query->result_array();
 	}
@@ -29,7 +32,7 @@ class Tweet_model extends CI_Model {
 	public function set_tweet($content)
 	{
 		$this->load->library('session');
-		$this->load->helper('url');
+		//$this->load->helper('url');
 		$this->load->helper('date');
 
 		$format = 'DATE_ATOM';

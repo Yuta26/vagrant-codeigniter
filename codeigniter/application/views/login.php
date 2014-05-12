@@ -6,7 +6,7 @@
 </head>
 <body>
 	<div id="container">
-		<?php echo form_open('welcome/index') ?>
+		<?php echo form_open('login/index') ?>
 			<label for="name">メールアドレス</label>
 			<input type="input" name="adress" /><br />
 
@@ -14,7 +14,7 @@
 			<input type="password" name="password" /><br />
 			<input type="submit" name="submit" value="ログイン" />
 		</form>
-		<a href="http://vagrant-codeigniter.local/index.php/welcome/regist">ユーザ登録情報はこちら</a>
+		<a href="http://vagrant-codeigniter.local/index.php/regist/index">ユーザ登録情報はこちら</a>
  	</div>
 </body>
 </html>
