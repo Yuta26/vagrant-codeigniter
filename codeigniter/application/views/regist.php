@@ -9,15 +9,18 @@
 		<?php echo validation_errors(); ?>
 		<?php echo form_open('regist/regist'); ?>
 
-		<label for="name">名前</label>
-		<input type="input" name="name" /><br />
+		<label>名前</label>
+		<?php echo form_input('name'); ?>
+		<br />
 
-		<label for="adress">メールアドレス</label>
-		<input type="input" name="adress" /><br />
+		<label>メールアドレス</label>
+		<?php echo form_input('adress'); ?>
+		<br />
 
-		<label for="password">パスワード</label>
-		<input type="password" name="password" /><br />
-		<input type="submit" name="submit" value="新規登録" />
+		<label>パスワード</label>
+		<?php echo form_password('password'); ?>
+		<br />
+		<?php echo form_submit('','新規登録'); ?>
 		</form>
 	</div>
 </body>

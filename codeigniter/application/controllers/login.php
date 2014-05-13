@@ -16,6 +16,7 @@ class Login extends CI_Controller {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->load->helper('email');
+		$this->load->helper('security');
 
 		$this->form_validation->set_rules('adress', 'メールアドレス', 'required');
 		$this->form_validation->set_rules('password', 'パスワード', 'required');
@@ -34,10 +35,10 @@ class Login extends CI_Controller {
 				}
 				else
 				{
-
 					$adress = $this->input->post('adress');
 					$pass = $this->input->post('password');
-					$login = $this->login_model->login_user($adress, $pass);
+					$encryption_pass = do_hash($pass); // SHA1
+					$login = $this->login_model->login_user($adress, $encryption_pass);
 					if ($login == 'TRUE')
 					{
 						$data['tweet'] = $this->tweet_model->get_tweet();

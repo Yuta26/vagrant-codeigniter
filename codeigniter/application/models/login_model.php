@@ -6,12 +6,10 @@ class Login_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function login_user($adress, $pass)
+	public function login_user($adress, $encryption_pass)
 	{
 		$this->load->library('session');
-		//$this->load->helper('url');
-
-		$this->db->select('*')->from('user')->where(array('adress' => $adress, 'password' => $pass));
+		$this->db->select('*')->from('user')->where(array('adress' => $adress, 'password' => $encryption_pass));
 		$query_check = $this->db->get();
 
 		if ($query_check->num_rows() > 0)
@@ -23,7 +21,7 @@ class Login_model extends CI_Model {
 			// sessionへのログイン情報の書き込み
 			$login_data = array(
 					'adress' => $adress,
-					'password' => $pass,
+					'password' => $encryption_pass,
 					'name' => $name
 				);
 			$this->session->set_userdata($login_data);
