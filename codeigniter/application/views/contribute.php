@@ -29,16 +29,25 @@
 		<!-- ログアウトボタンの実装 -->
 		<?php echo validation_errors(); ?>
 		<?php echo form_open('tweet/logout'); ?>
-		<input type="hidden" name="flag" value="1">
-		<input type="submit" value="ログアウト">
+
+		<?php echo form_hidden('flag', '1') ?>
+		<?php echo form_submit('','ログアウト') ?>
 		</form>
+		<?php echo '</br>'; ?>
 
 		<!-- ツイート機能の実装 -->
 		<?php echo form_open('tweet/index'); ?>
-		<?php echo '</br>'; ?>
-		<textarea name="content" rows="4" cols="40"></textarea>
+		<?php
+			$tweet_data = array(
+				'name' => 'content',
+				'rows' => '3',
+				'cols' => '40',
+				'maxlength' => '139'
+				);
+			echo form_textarea($tweet_data);
+		?>
 		</br>
-		<input type="submit" value="ツイート">
+		<?php echo form_submit('','ツイート'); ?>
 		</form>
 		</br>
 		<?php foreach ($tweet as $tweet_item):?>

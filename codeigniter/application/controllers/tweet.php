@@ -10,7 +10,6 @@ class Tweet extends CI_Controller {
 	public function index()
 	{
 		$this->load->library('session');
-		//$this->load->helper('url');
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 
@@ -42,7 +41,6 @@ class Tweet extends CI_Controller {
 	public function logout()
 	{
 		$this->load->library('session');
-		//$this->load->helper('url');
 		$this->load->helper('form');
 		$flag = $this->input->post('flag');
 		if ($flag === '1')

@@ -15,7 +15,6 @@ class Regist extends CI_Controller {
 		$this->load->helper('email');
 		$this->load->helper('form');
 		$this->load->library('form_validation');
-		$this->load->library('form_validation');
 		$this->load->helper('security');
 
 		$this->form_validation->set_rules('name', '名前', 'required');
