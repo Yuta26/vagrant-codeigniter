@@ -25,6 +25,7 @@ class Tweet_model extends CI_Model {
 		$data = $this->session->all_userdata();
 		$adress = $data['adress'];
 		// ログインアドレスの投稿ツイートを１０件取得
+		$this->db->order_by("create_tweet", "desc");
 		$query = $this->db->get_where('tweet',array('adress' => $adress),10);
 		return $query->result_array();
 	}
