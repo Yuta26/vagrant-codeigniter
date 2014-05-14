@@ -28,6 +28,10 @@ class Regist extends CI_Controller {
             $encryption_pass = do_hash($pass); // SHA1
             $name = $this->input->post('name');
             $this->user_model->add_user($name, $adress, $encryption_pass);
+
+            $user_id = $this->user_model->get_user_id($adress);
+            // sessionへのデータの書き込みを行う
+            $this->session->set_userdata('user_id', $user_id);
             redirect('/tweet/','location');
         }
     }
@@ -40,7 +44,7 @@ class Regist extends CI_Controller {
         } else if ((valid_email($str)) === false) {
             $this->form_validation->set_message('adress_check', 'メールアドレスの形式ではありません');
                 return false;
-        } else if ($this->user_model->get_user($str) === true) {
+        } else if ($this->user_model->check_adress($str) === true) {
             $this->form_validation->set_message('adress_check','既に登録されたアドレスです');
             return false;
         } else {

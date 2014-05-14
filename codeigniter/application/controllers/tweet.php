@@ -13,6 +13,9 @@ class Tweet extends CI_Controller {
         $this->load->helper('form');
         $this->load->library('form_validation');
 
+        // session情報に格納されているuser_idを取り出す,ツイートされたときにDBに格納する
+        $check_user_id = $this->session->userdata('user_id');
+
         //　ログインしていない場合、ログイン画面へ遷移
         $check_user = $this->tweet_model->check_user();
         if($check_user == true) {

@@ -36,7 +36,6 @@ class User_model extends CI_Model {
 
     public function add_user($name, $adress, $encryption_pass)
     {
-        $this->load->library('session');
         $this->load->helper('date');
         $format = 'DATE_ATOM';
         $time = time();
@@ -49,19 +48,22 @@ class User_model extends CI_Model {
             'adress' => $adress,
             'password' => $encryption_pass
         );
-        // sessionへのデータの書き込み
         $this->db->insert('user', $data);
-        $login_data = array(
-                'adress' => $adress,
-                'password' => $encryption_pass,
-                'name' => $name
-            );
-        $this->session->set_userdata($login_data);
-        $data = $this->session->all_userdata();
         return;
     }
 
-    public function get_user($str)
+    // user_idの取得
+    public function get_user_id($adress)
+    {
+        $this->db->select('user_id')->from('user')->where(array('adress' => $adress));
+        $query_check = $this->db->get();
+        if ($query_check->num_rows() > 0) {
+            foreach ($query_check->result_array() as $row);
+            return $row['user_id'];
+        }
+    }
+
+    public function check_adress($str)
     {
         $this->db->select('*')->from('user')->where(array('adress' => $str));
         $query_check = $this->db->get();
