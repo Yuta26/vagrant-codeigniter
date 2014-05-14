@@ -9,7 +9,7 @@
         <?php echo validation_errors(); ?>
         <?php echo form_open('login/index') ?>
             <label>メールアドレス</label>
-            <?php echo form_input('adress'); ?>
+            <?php echo form_input('adress',set_value('adress')); ?>
             <br />
             <label>パスワード</label>
             <?php echo form_password('password'); ?>

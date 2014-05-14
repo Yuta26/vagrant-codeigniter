@@ -6,16 +6,16 @@ class Tweet_model extends CI_Model {
         $this->load->database();
     }
 
-    public function check_user()
+    // ユーザーがログインした状態かチェック
+    public function check_user($check_user_id)
     {
-        $this->load->library('session');
-        $data = $this->session->all_userdata();
-        $query = $this->db->get_where('user',array('adress' => $data['adress']));
-        $db_adress = $query->result_array();
-        if($db_adress == true) {
+        $query = $this->db->get_where('user',array('user_id' => $check_user_id));
+        $db_user_id = $query->result_array();
+        if ($db_user_id == true) {
             return true;
+        } else {
+            return false;
         }
-        else return;
     }
 
     public function get_tweet()

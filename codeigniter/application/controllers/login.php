@@ -5,41 +5,54 @@ class Login extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('login_model');
-        $this->load->model('tweet_model');
+        $this->load->model('user_model');
     }
 
     public function index()
     {
         $this->load->library('session');
-        $this->load->helper('form');
         $this->load->library('form_validation');
+        $this->load->helper('url');
         $this->load->helper('email');
+        $this->load->helper('form');
         $this->load->helper('security');
 
-        $this->form_validation->set_rules('adress', 'メールアドレス', 'required');
+        $this->form_validation->set_rules('adress', 'メールアドレス', 'callback_adress_check');
         $this->form_validation->set_rules('password', 'パスワード', 'required');
 
         if ($this->form_validation->run() === false) {
             $this->load->view('login');
+            return;
+        }
+
+        $adress = $this->input->post('adress');
+        $pass = $this->input->post('password');
+        $encryption_pass = do_hash($pass); // SHA1
+        $login_check = $this->user_model->login_check($adress, $encryption_pass);
+
+        if ($login_check === false) {
+            echo 'メールアドレス又はパスワードが違います';
+            $this->load->view('login');
+            return;
+        }
+
+        $user_id = $this->user_model->get_user_id($adress);
+        // sessionへのデータの書き込みを行う
+        $this->session->set_userdata('name', $name);
+        $this->session->set_userdata('user_id', $user_id);
+        redirect('/tweet/','location');
+    }
+
+    function adress_check($str)
+    {
+        if ($str == '') {
+            $this->form_validation->set_message('adress_check', 'メールアドレスを入力してください');
+            return false;
+        } elseif ((valid_email($str)) === false) {
+            $this->form_validation->set_message('adress_check', 'メールアドレスの形式ではありません');
+            return false;
         } else {
-            if ((valid_email($this->input->post('adress'))) === false) {
-                echo 'メールアドレスを正しく入力してください';
-                echo '</br>';
-                $this->load->view('login');
-            } else {
-                $adress = $this->input->post('adress');
-                $pass = $this->input->post('password');
-                $encryption_pass = do_hash($pass); // SHA1
-                $login = $this->login_model->login_user($adress, $encryption_pass);
-                if ($login == true) {
-                    $data['tweet'] = $this->tweet_model->get_tweet();
-                    $this->load->view('contribute',$data);
-                } else {
-                    echo 'メールアドレスとパスワードが一致しません';
-                    $this->load->view('login');
-                }
-            }
+            return true;
         }
     }
 }
