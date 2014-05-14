@@ -5,17 +5,15 @@ class Regist extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('user_model');
-        $this->load->model('tweet_model');
-        //redirectするのでtweet_modelは必要ない
-        //$this->load->model('tweet_model');
     }
 
     public function index()
     {
         $this->load->library('session');
+        $this->load->library('form_validation');
+        $this->load->helper('url');
         $this->load->helper('email');
         $this->load->helper('form');
-        $this->load->library('form_validation');
         $this->load->helper('security');
 
         $this->form_validation->set_rules('name', '名前', 'required');
@@ -30,9 +28,7 @@ class Regist extends CI_Controller {
             $encryption_pass = do_hash($pass); // SHA1
             $name = $this->input->post('name');
             $this->user_model->add_user($name, $adress, $encryption_pass);
-            // redirectさせる
-            $data['tweet'] = $this->tweet_model->get_tweet();
-            $this->load->view('contribute',$data);
+            redirect('/tweet/','location');
         }
     }
 
