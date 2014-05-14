@@ -10,11 +10,11 @@
         <?php echo form_open('regist/regist'); ?>
 
         <label>名前</label>
-        <?php echo form_input('name'); ?>
+        <?php echo form_input('name',set_value('name')); ?>
         <br />
 
         <label>メールアドレス</label>
-        <?php echo form_input('adress'); ?>
+        <?php echo form_input('adress',set_value('adress')); ?>
         <br />
 
         <label>パスワード</label>

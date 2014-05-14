@@ -34,7 +34,7 @@ class User_model extends CI_Model {
         }
     }
 
-    public function set_user($name, $adress, $encryption_pass)
+    public function add_user($name, $adress, $encryption_pass)
     {
         $this->load->library('session');
         $this->load->helper('date');
@@ -61,11 +61,14 @@ class User_model extends CI_Model {
         return;
     }
 
-    public function get_user($adress)
+    public function get_user($str)
     {
-        $this->load->library('session');
-        $this->db->select('*')->from('user')->where(array('adress' => $adress));
+        $this->db->select('*')->from('user')->where(array('adress' => $str));
         $query_check = $this->db->get();
-        return $query_check;
+        if ($query_check->num_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
