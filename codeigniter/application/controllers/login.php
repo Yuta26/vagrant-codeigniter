@@ -20,10 +20,10 @@ class Login extends CI_Controller {
         $this->form_validation->set_rules('adress', 'メールアドレス', 'required');
         $this->form_validation->set_rules('password', 'パスワード', 'required');
 
-        if ($this->form_validation->run() === FALSE) {
+        if ($this->form_validation->run() === false) {
             $this->load->view('login');
         } else {
-            if ((valid_email($this->input->post('adress'))) === FALSE) {
+            if ((valid_email($this->input->post('adress'))) === false) {
                 echo 'メールアドレスを正しく入力してください';
                 echo '</br>';
                 $this->load->view('login');
@@ -32,7 +32,7 @@ class Login extends CI_Controller {
                 $pass = $this->input->post('password');
                 $encryption_pass = do_hash($pass); // SHA1
                 $login = $this->login_model->login_user($adress, $encryption_pass);
-                if ($login == 'TRUE') {
+                if ($login == true) {
                     $data['tweet'] = $this->tweet_model->get_tweet();
                     $this->load->view('contribute',$data);
                 } else {

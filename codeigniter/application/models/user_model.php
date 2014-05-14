@@ -26,11 +26,11 @@ class User_model extends CI_Model {
                     'name' => $name
                 );
             $this->session->set_userdata($login_data);
-            return 'TRUE';
+            return true;
         }
         else
         {
-            return 'FALSE';
+            return false;
         }
     }
 

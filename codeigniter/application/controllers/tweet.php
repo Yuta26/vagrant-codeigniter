@@ -15,10 +15,10 @@ class Tweet extends CI_Controller {
 
         //　ログインしていない場合、ログイン画面へ遷移
         $check_user = $this->tweet_model->check_user();
-        if($check_user == TRUE) {
+        if($check_user == true) {
             $this->form_validation->set_rules('content', 'ツイート', 'required');
             $data['tweet'] = $this->tweet_model->get_tweet();
-            if ($this->form_validation->run() === FALSE) {
+            if ($this->form_validation->run() === false) {
                 $this->load->view('contribute',$data);
             } else {
                 $content = $this->input->post('content');

@@ -20,10 +20,10 @@ class Regist extends CI_Controller {
         $this->form_validation->set_rules('adress', 'メールアドレス', 'required');
         $this->form_validation->set_rules('password', 'パスワード', 'required|min_length[6]|alpha_numeric');
 
-        if ($this->form_validation->run() === FALSE) {
+        if ($this->form_validation->run() === false) {
             $this->load->view('regist');
         } else {
-            if((valid_email($this->input->post('adress'))) === FALSE) {
+            if((valid_email($this->input->post('adress'))) === false) {
                 echo 'メールアドレスを正しく入力してください';
                 echo '</br>';
                 $this->load->view('regist');

@@ -25,11 +25,9 @@
 </head>
 <body>
     <div id="container">
-
-        <!-- ログアウトボタンの実装 -->                
+        <!-- ログアウトボタンの実装 -->
         <?php echo validation_errors(); ?>
         <?php echo form_open('tweet/logout'); ?>
-
             <?php echo form_hidden('flag', '1') ?>
             <?php echo form_submit('','ログアウト') ?>
         </form>
