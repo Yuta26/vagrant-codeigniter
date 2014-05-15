@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: 2014 年 5 月 13 日 15:03
+-- Generation Time: 2014 年 5 月 15 日 12:18
 -- サーバのバージョン： 5.5.37-log
 -- PHP Version: 5.4.27
 
@@ -23,24 +23,31 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- テーブルの構造 `tweet`
+--
+
+CREATE TABLE IF NOT EXISTS `tweet` (
+  `tweet_id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` varchar(140) NOT NULL,
+  `create_at` datetime NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`tweet_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+
+-- --------------------------------------------------------
+
+--
 -- テーブルの構造 `user`
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
   `adress` varchar(128) NOT NULL,
   `password` varchar(128) NOT NULL,
-  `create_at` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
---
--- テーブルのデータのダンプ `user`
---
-
-INSERT INTO `user` (`id`, `name`, `adress`, `password`, `create_at`) VALUES
-(1, '悠太', 'yuta@yuta.jp', '03e0ab186cebedc57b20e2dfc5672d8855c4474c', '2014-05-13 12:58:36');
+  `create_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
