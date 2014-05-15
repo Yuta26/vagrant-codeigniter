@@ -28,7 +28,6 @@
         <!-- ログアウトボタンの実装 -->
         <?php echo validation_errors(); ?>
         <?php echo form_open('tweet/logout'); ?>
-            <?php echo form_hidden('flag', '1') ?>
             <?php echo form_submit('','ログアウト') ?>
         </form>
         <?php echo '</br>'; ?>
@@ -54,7 +53,7 @@
                     <?php echo $tweet_item['name'] ?>
                 </div>
                 <div id='right'>
-                    <?php echo $tweet_item['create_tweet'] ?>
+                    <?php echo $tweet_item['create_at'] ?>
                 </div>
                 <p class="tweet-sentence">
                     <?php echo $tweet_item['content'] ?>

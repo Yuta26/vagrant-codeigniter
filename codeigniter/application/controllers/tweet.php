@@ -10,38 +10,39 @@ class Tweet extends CI_Controller {
     public function index()
     {
         $this->load->library('session');
-        $this->load->helper('form');
         $this->load->library('form_validation');
+        $this->load->helper('url');
+        $this->load->helper('form');
 
-        // session情報に格納されているuser_idを取り出す,ツイートされたときにDBに格納する
-        $check_user_id = $this->session->userdata('user_id');
+        $user_id = $this->session->userdata('user_id');
         //　ログインしていない場合、ログイン画面へ遷移
-        $check_user = $this->tweet_model->check_user($check_user_id);
-        if($check_user === true) {
-            $this->form_validation->set_rules('content', 'ツイート', 'required');
-            $data['tweet'] = $this->tweet_model->get_tweet();
-            if ($this->form_validation->run() === false) {
-                $this->load->view('contribute',$data);
-            } else {
-                $content = $this->input->post('content');
-                $this->tweet_model->set_tweet($content);
-                $data['tweet'] = $this->tweet_model->get_tweet();
-                $this->load->view('contribute',$data);
-            }
+        $check_user = $this->tweet_model->check_user($user_id);
+
+        if ($check_user === false) {
+            redirect('/login/','location');
+            return;
+        }
+
+        $this->form_validation->set_rules('content', 'ツイート', 'required');
+
+        if ($this->form_validation->run() === false) {
+            $data['tweet'] = $this->tweet_model->get_tweet($user_id);
+            $this->load->view('contribute',$data);
         } else {
-            echo 'ログインしてください';
-            $this->load->view('login');
+            $content = $this->input->post('content');
+            $this->tweet_model->add_tweet($content, $user_id);
+            // リロードによる再投稿を防ぐため
+            redirect('/tweet/','location');
         }
     }
 
     public function logout()
     {
         $this->load->library('session');
+        $this->load->helper('url');
         $this->load->helper('form');
-        $flag = $this->input->post('flag');
-        if ($flag === '1') {
-            $this->session->sess_destroy();
-            $this->load->view('login');
-        }
+
+        $this->session->sess_destroy();
+        redirect('/login/','location');
     }
 }
