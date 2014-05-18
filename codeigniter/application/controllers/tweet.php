@@ -14,7 +14,6 @@ class Tweet extends CI_Controller {
         $this->load->helper('url');
         $this->load->helper('form');
 
-
         $user_id = $this->session->userdata('user_id');
         //　ログインしていない場合、ログイン画面へ遷移
         $check_user = $this->tweet_model->check_user($user_id);
@@ -30,11 +29,16 @@ class Tweet extends CI_Controller {
             $data['tweet'] = $this->tweet_model->get_tweet($user_id);
             $this->load->view('contribute',$data);
         } else {
+            //　１時的テスト
+            $data['tweet'] = $this->tweet_model->get_tweet($user_id);
+
             $content = $this->input->post('content');
             $content = $this->security->xss_clean($content);
-            $this->tweet_model->add_tweet($content, $user_id);
+            $this->tweet_model->insert_tweet($content, $user_id);
             // リロードによる再投稿を防ぐため
-            redirect('/tweet/','location');
+            //redirect('/tweet/','location');
+            //１時的テスト
+            $this->load->view('contribute',$data);
         }
     }
 

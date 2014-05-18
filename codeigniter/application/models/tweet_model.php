@@ -28,7 +28,7 @@ class Tweet_model extends CI_Model {
         return $query->result_array();
     }
 
-    public function add_tweet($content, $user_id)
+    public function insert_tweet($content, $user_id)
     {
         $this->load->helper('date');
 
