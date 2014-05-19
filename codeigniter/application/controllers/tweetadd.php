@@ -30,20 +30,21 @@ class Tweetadd extends CI_Controller {
         $this->load->library('session');
         $user_id = $this->session->userdata('user_id');
         //　ここが原因（ajaxができなくなる）
-        //$data = $this->tweet_model->read_tweet($user_id);
-        // foreach($result as $result_item){
-        //     echo result_item["name"];
-        //     echo result_item["create_at"];
-        //     echo result_item["content"];
-        // };
-
-        //　サンプル
+        $data = $this->tweet_model->read_tweet($user_id);
+        foreach($data as $result);
         $data = array(
-            "content" => "大きな栗の",
-            "name" => "にわ",
-            "time" => "１時間前"
+            "content" => $result["content"],
+            "name" => $result["name"],
+            "time" => $result["create_at"]
         );
         $result = $data;
+        //　サンプル
+        // $data = array(
+        //     "content" => "大きな栗の",
+        //     "name" => "にわ",
+        //     "time" => "１時間前"
+        // );
+//        $result = $data;
         echo json_encode($result);
     }
 }
