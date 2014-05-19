@@ -59,22 +59,22 @@
 
             //　「もっと見る」ボタンの実装
             $("#read_button").click(function() {
-                $.getJSON("tweetadd/read", function(result) {
-                    alert();
-                    //　ここから下は動かない
+                $.getJSON("tweetadd/read", function(response) {
+                    for (var i = 0 ; i < response.length ; i++) {
                         $("#tweetRead").before(
                             "<div class='wrapper'>" +
                                 "<div id='left_add'>" +
-                                    result.name +
+                                    response[i].name +
                                 "</div>" +
                                 "<div id='right_add'>" +
-                                    result.time +
+                                    response[i].time +
                                 "</div>" +
                                 "<p>" +
-                                    result.content +
+                                    response[i].content +
                                 "</p>" +
                             "</div>"
                         );
+                    }
                 },"json")
                 .error(function(json) {
                     console.log("失敗");
