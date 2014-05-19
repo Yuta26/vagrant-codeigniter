@@ -60,20 +60,25 @@
             //　「もっと見る」ボタンの実装
             $("#read_button").click(function() {
                 $.getJSON("tweetadd/read", function(result) {
-                    $("#tweetRead").before(
-                        "<div class='wrapper'>" +
-                            "<div id='left_add'>" +
-                                result.name +
-                            "</div>" +
-                            "<div id='right_add'>" +
-                                result.time +
-                            "</div>" +
-                            "<p>" +
-                                result.content +
-                            "</p>" +
-                        "</div>"
-                    );
-                 },"json");
+                    alert();
+                    //　ここから下は動かない
+                        $("#tweetRead").before(
+                            "<div class='wrapper'>" +
+                                "<div id='left_add'>" +
+                                    result.name +
+                                "</div>" +
+                                "<div id='right_add'>" +
+                                    result.time +
+                                "</div>" +
+                                "<p>" +
+                                    result.content +
+                                "</p>" +
+                            "</div>"
+                        );
+                },"json")
+                .error(function(json) {
+                    console.log("失敗");
+                });
             });
         });
     </script>

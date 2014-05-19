@@ -66,7 +66,7 @@ class Tweet_model extends CI_Model {
         //$num  = $this->db->count_all('tweet');
         //echo $num;
         //if ($num >= 10) {
-            $query = $this->db->get('tweet',10,10);
+        $query = $this->db->get('tweet',10,10);
         //}
         return $query->result_array();
     }
