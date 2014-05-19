@@ -16,13 +16,11 @@ class Tweetadd extends CI_Controller {
         $content = $this->input->get("content");
         $content = $this->security->xss_clean($content);
         $this->tweet_model->insert_tweet($content, $user_id);
-
+        $row = $this->tweet_model->get_name($user_id);
         $data = array(
-            "content"=>$content
-        //　名前をDBから取得
-        //"name" => $name,
-        //　時間もDBから取得
-        //"time" => $time
+            "content"=>$content,
+            "name" => $row['name'],
+            "time" => $row['create_at']
         );
         $result = $data;
         echo json_encode($result);

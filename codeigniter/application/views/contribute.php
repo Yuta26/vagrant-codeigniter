@@ -16,7 +16,7 @@
 
         #right,
         #right_add {
-            float:right;
+            float: right;
             padding-left: 30px;
             padding-right: 30px;
         }
@@ -29,26 +29,32 @@
     </style>
     <script type="text/javascript">
         $(function() {
+            // ツイート投稿時
             $("#tweet_button").click(function() {
                 var text = $("#form_text").val();
                 console.log(text);
                 if (text == "") {
                     $("#alert").html("何も入力されていません");
-                    return;
-                }
-                var str = $("#tweet_form").serialize();
-                var hiddenStr = $(":hidden").serializeArray();
-                var csrf_value = hiddenStr[0];
-                var csrf_test_name = $(csrf_value).attr('name');
-                var csrf_test_value = $(csrf_value).attr('value');
+                } else {
+                    var str = $("#tweet_form").serialize();
 
-                $.getJSON("tweetadd",{csrf_test_name:csrf_test_value}, function(){},"json");
-                $.getJSON("tweetadd",str, function(result) {
-                    $("#left_add").append(result.name);
-                    $("#right_add").append(result.time);
-                    $("#tweet_sentence_add").append(result.content);
-                },"json");
-                $("#form_text").attr("value", "");
+                    $.getJSON("tweetadd",str, function(result) {
+                        $("#tweetInsert").prepend(
+                            "<div class='wrapper'>" +
+                                "<div id='left_add'>" +
+                                    result.name +
+                                "</div>" +
+                                "<div id='right_add'>" +
+                                    result.time +
+                                "</div>" +
+                                "<p>" +
+                                    result.content +
+                                "</p>" +
+                            "</div>"
+                        );
+                    },"json");
+                    $("#form_text").attr("value", "");
+                }
             });
         });
     </script>
@@ -83,17 +89,7 @@
             <?php echo form_button($tweet_button,'ツイート'); ?>
         </form>
         </br>
-        <div class="wrapper">
-            <div id="left_add">
-                 <!-- <?php echo $tweet_item['name'] ?> -->
-            </div>
-            <div id='right_add'>
-                <!-- <?php echo $tweet_item['create_at'] ?> -->
-            </div>
-            <p id="tweet_sentence_add">
-                <!-- <?php echo $tweet_item['content'] ?> -->
-            </p>
-        </div>
+        <div id="tweetInsert"></div>
         <?php foreach ($tweet as $tweet_item):?>
             <div class="wrapper">
                 <div id="left">
