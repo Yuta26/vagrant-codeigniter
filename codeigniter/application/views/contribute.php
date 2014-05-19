@@ -28,24 +28,27 @@
 
     </style>
     <script type="text/javascript">
-        //submitボタンが押されたら、csrf_test_nameを送信する
         $(function() {
             $("#tweet_button").click(function() {
-                // ツイートの内容をテキスト化する
+                var text = $("#form_text").val();
+                console.log(text);
+                if (text == "") {
+                    $("#alert").html("何も入力されていません");
+                    return;
+                }
                 var str = $("#tweet_form").serialize();
-                console.log(str);
                 var hiddenStr = $(":hidden").serializeArray();
                 var csrf_value = hiddenStr[0];
                 var csrf_test_name = $(csrf_value).attr('name');
                 var csrf_test_value = $(csrf_value).attr('value');
 
-                // ツイートの内容と、csrf_test_nameの値をサーバーに送信
                 $.getJSON("tweetadd",{csrf_test_name:csrf_test_value}, function(){},"json");
                 $.getJSON("tweetadd",str, function(result) {
                     $("#left_add").append(result.name);
                     $("#right_add").append(result.time);
                     $("#tweet_sentence_add").append(result.content);
                 },"json");
+                $("#form_text").attr("value", "");
             });
         });
     </script>
@@ -60,11 +63,13 @@
         <?php echo '</br>'; ?>
 
         <!-- ツイート機能の実装 -->
+        <div id="alert"></div>
         <?php $attributes = array('id' => 'tweet_form'); ?>
         <?php echo form_open('tweetadd', $attributes); ?>
             <?php
                 $tweet_data = array(
                     'name' => 'content',
+                    'id' => 'form_text',
                     'rows' => '3',
                     'cols' => '40',
                     'maxlength' => '139'

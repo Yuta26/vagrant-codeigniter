@@ -30,7 +30,7 @@ class Tweet extends CI_Controller {
             $this->load->view('contribute',$data);
         } else {
             //　１時的テスト
-            $data['tweet'] = $this->tweet_model->get_tweet($user_id);
+            //$data['tweet'] = $this->tweet_model->get_tweet($user_id);
 
             $content = $this->input->post('content');
             $content = $this->security->xss_clean($content);

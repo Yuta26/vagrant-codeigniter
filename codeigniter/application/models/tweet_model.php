@@ -18,6 +18,7 @@ class Tweet_model extends CI_Model {
         }
     }
 
+    // 最初にツイートを１０件読み出す処理
     public function get_tweet($user_id)
     {
         $this->db->join('user', 'user.user_id = tweet.user_id');
