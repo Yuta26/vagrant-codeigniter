@@ -59,21 +59,21 @@
 
             //　「もっと見る」ボタンの実装
             $("#read_button").click(function() {
-                // $.getJSON("tweetadd/read", function() {
-                     　$("#tweetRead").before(
+                $.getJSON("tweetadd/read", function(result) {
+                    $("#tweetRead").before(
                         "<div class='wrapper'>" +
-                            "<div id='left_add'>bbb" +
-                                // result_item.name +
+                            "<div id='left_add'>" +
+                                result.name +
                             "</div>" +
-                            "<div id='right_add'>ccc" +
-                                // result_item.time +
+                            "<div id='right_add'>" +
+                                result.time +
                             "</div>" +
-                            "<p>ddd" +
-                                // result_item.content +
+                            "<p>" +
+                                result.content +
                             "</p>" +
                         "</div>"
-                        );
-                    // },"json");
+                    );
+                 },"json");
             });
         });
     </script>
