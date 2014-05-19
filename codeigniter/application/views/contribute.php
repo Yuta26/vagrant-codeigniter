@@ -56,6 +56,25 @@
                     $("#form_text").attr("value", "");
                 }
             });
+
+            //　「もっと見る」ボタンの実装
+            $("#read_button").click(function() {
+                // $.getJSON("tweetadd/read", function() {
+                     　$("#tweetRead").before(
+                        "<div class='wrapper'>" +
+                            "<div id='left_add'>bbb" +
+                                // result_item.name +
+                            "</div>" +
+                            "<div id='right_add'>ccc" +
+                                // result_item.time +
+                            "</div>" +
+                            "<p>ddd" +
+                                // result_item.content +
+                            "</p>" +
+                        "</div>"
+                        );
+                    // },"json");
+            });
         });
     </script>
 </head>
@@ -103,8 +122,10 @@
                 </p>
             </div>
         <?php endforeach ?>
+        <div id="tweetRead"></div>
         </br>
-        <input type="button" value="もっと見る">
+        <?php $read_button = array('id' => "read_button"); ?>
+        <?php echo form_button($read_button,'もっと見る'); ?>
     </div>
 </body>
 </html>
