@@ -55,19 +55,33 @@ class Tweet_model extends CI_Model {
         return $query->row_array();
     }
 
-
-    //追加で１０件読み込む処理
-    public function read_tweet($user_id)
+    private function read_tweet_query($user_id)
     {
         $this->db->join('user', 'user.user_id = tweet.user_id');
         $this->db->select('name, content, tweet.create_at');
         $this->db->where(array('tweet.user_id' => $user_id));
         $this->db->order_by('tweet.create_at', 'desc');
-        //$num  = $this->db->count_all('tweet');
-        //echo $num;
+        return $this->db;
+    }
+
+    //追加で１０件読み込む処理
+    public function read_tweet($user_id, $num)
+    {
+        // $this->db->join('user', 'user.user_id = tweet.user_id');
+        // $this->db->select('name, content, tweet.create_at');
+        // $this->db->where(array('tweet.user_id' => $user_id));
+        // $this->db->order_by('tweet.create_at', 'desc');
+        $tweet_num  = $this->read_tweet_query($user_id)->count_all('tweet');
+        // $this->db->join('user', 'user.user_id = tweet.user_id');
+        // $this->db->select('name, content, tweet.create_at');
+        // $this->db->where(array('tweet.user_id' => $user_id));
+        // $this->db->order_by('tweet.create_at', 'desc');
         //if ($num >= 10) {
-        $query = $this->db->get('tweet',10,10);
+        $query = $this->read_tweet_query($user_id)->get('tweet',10,10);
         //}
+        if ($query == "") {
+            log_message('error', "値がない");
+        }
         return $query->result_array();
     }
 }
