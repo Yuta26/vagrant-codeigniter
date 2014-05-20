@@ -28,6 +28,7 @@
 
     </style>
     <script type="text/javascript">
+        var num = 0;
         $(function() {
             // ツイート投稿時
             $("#tweet_button").click(function() {
@@ -59,7 +60,8 @@
 
             //　「もっと見る」ボタンの実装
             $("#read_button").click(function() {
-                $.getJSON("tweetadd/read", function(response) {
+                num++;
+                $.getJSON("tweetadd/read", {"num" : num}, function(response) {
                     for (var i = 0 ; i < response.length ; i++) {
                         $("#tweetRead").before(
                             "<div class='wrapper'>" +
