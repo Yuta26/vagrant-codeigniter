@@ -28,18 +28,7 @@ class Tweet extends CI_Controller {
         if ($this->form_validation->run() === false) {
             $data['tweet'] = $this->tweet_model->get_tweet($user_id);
             $this->load->view('contribute',$data);
-        } else {
-            //　１時的テスト
-            //$data['tweet'] = $this->tweet_model->get_tweet($user_id);
-
-            $content = $this->input->post('content');
-            $content = $this->security->xss_clean($content);
-            $this->tweet_model->insert_tweet($content, $user_id);
-            // リロードによる再投稿を防ぐため
-            //redirect('/tweet/','location');
-            //１時的テスト
-            $this->load->view('contribute',$data);
-        }
+        } 
     }
 
     public function logout()

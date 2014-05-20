@@ -8,7 +8,6 @@ class Tweetadd extends CI_Controller {
     }
 
     public function index() {
-        // DBから名前と日時を取得しないと行けない
         $this->load->library('session');
         $this->load->library('form_validation');
 
