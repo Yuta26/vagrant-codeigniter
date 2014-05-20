@@ -30,7 +30,8 @@ class Tweetadd extends CI_Controller {
         $this->load->library('session');
         $user_id = $this->session->userdata('user_id');
         $num = $this->input->get("num");
-        $data = $this->tweet_model->read_tweet($user_id ,$num);
+        $contribute_num = $this->input->get("contribute_num");
+        $data = $this->tweet_model->read_tweet($user_id ,$num, $contribute_num);
         $response = array();
         foreach($data as $result) {
             $response[] = array(

@@ -29,6 +29,7 @@
     </style>
     <script type="text/javascript">
         var num = 0;
+        var contribute_num = 0;
         $(function() {
             // ツイート投稿時
             $("#tweet_button").click(function() {
@@ -38,7 +39,6 @@
                     $("#alert").html("何も入力されていません");
                 } else {
                     var str = $("#tweet_form").serialize();
-
                     $.getJSON("tweetadd",str, function(result) {
                         $("#tweetInsert").prepend(
                             "<div class='wrapper'>" +
@@ -55,13 +55,14 @@
                         );
                     },"json");
                     $("#form_text").attr("value", "");
+                    contribute_num++;
                 }
             });
 
             //　「もっと見る」ボタンの実装
             $("#read_button").click(function() {
                 num++;
-                $.getJSON("tweetadd/read", {"num" : num}, function(response) {
+                $.getJSON("tweetadd/read", {"num" : num, "contribute_num" : contribute_num}, function(response) {
                     if (response.length == false) {
                         $("#tweetRead").before("<p>読み込めるツイートはありません</p>");
                         $("#read_button").hide();
@@ -81,6 +82,7 @@
                                 "</div>"
                             );
                         }
+                        contribute_num = 0;
                     }
                 },"json")
                 .error(function(json) {

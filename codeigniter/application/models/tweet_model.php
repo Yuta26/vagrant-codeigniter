@@ -65,15 +65,15 @@ class Tweet_model extends CI_Model {
     }
 
     //追加で１０件読み込む処理
-    public function read_tweet($user_id, $num)
+    public function read_tweet($user_id, $num, $contribute_num)
     {
         $tweet_num = $this->read_tweet_query($user_id)->count_all('tweet');
-        $tweet_num = $tweet_num - $num * 10;
+        $tweet_num = $tweet_num - $contribute_num - $num * 10;
 
         if ($tweet_num >= 10) {
-            $query = $this->read_tweet_query($user_id)->get('tweet', 10, 10 * $num);
+            $query = $this->read_tweet_query($user_id)->get('tweet', 10, 10 * $num + $contribute_num);
         } elseif ($tweet_num < 10 && $tweet_num > 0) {
-            $query = $this->read_tweet_query($user_id)->get('tweet', $tweet_num, 10 * $num);
+            $query = $this->read_tweet_query($user_id)->get('tweet', $tweet_num, 10 * $num + $contribute_num);
         } else {
             return array();
         }
