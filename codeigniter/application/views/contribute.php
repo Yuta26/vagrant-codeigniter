@@ -62,20 +62,25 @@
             $("#read_button").click(function() {
                 num++;
                 $.getJSON("tweetadd/read", {"num" : num}, function(response) {
-                    for (var i = 0 ; i < response.length ; i++) {
-                        $("#tweetRead").before(
-                            "<div class='wrapper'>" +
-                                "<div id='left_add'>" +
-                                    response[i].name +
-                                "</div>" +
-                                "<div id='right_add'>" +
-                                    response[i].time +
-                                "</div>" +
-                                "<p>" +
-                                    response[i].content +
-                                "</p>" +
-                            "</div>"
-                        );
+                    if (response.length == false) {
+                        $("#tweetRead").before("<p>読み込めるツイートはありません</p>");
+                        $("#read_button").hide();
+                    } else {
+                        for (var i = 0 ; i < response.length ; i++) {
+                            $("#tweetRead").before(
+                                "<div class='wrapper'>" +
+                                    "<div id='left_add'>" +
+                                        response[i].name +
+                                    "</div>" +
+                                    "<div id='right_add'>" +
+                                        response[i].time +
+                                    "</div>" +
+                                    "<p>" +
+                                        response[i].content +
+                                    "</p>" +
+                                "</div>"
+                            );
+                        }
                     }
                 },"json")
                 .error(function(json) {
