@@ -30,11 +30,31 @@
     <script type="text/javascript">
         var num = 0;
         var contribute_num = 0;
+
         $(function() {
+            //　時刻変換処理の記述
+            $("#right").each(function() {
+                var myNow = new Date();
+                var changeTime =  myNow.getTime();
+                console.log(changeTime);
+
+                var tweetTime = $(this).text();
+                var registTime = new Date(tweetTime);
+                var tweetChangeTime = registTime.getTime();
+                var time = changeTime - tweetChangeTime;
+                // ミリ秒単位での表示のため
+                var hour_time = Math.floor(time/ 1000 / 60 / 60);
+                if (hour_time >= 24) {
+                    var day_time = Math.floor(hour_time / 24);
+                    $("#right").html(day_time + "日前");
+                } else {
+                    $("#right").html(hour_time + "時間前");
+                }
+            });
+
             // ツイート投稿時
             $("#tweet_button").click(function() {
                 var text = $("#form_text").val();
-                console.log(text);
                 if (text == "") {
                     $("#alert").html("何も入力されていません");
                 } else {
@@ -82,7 +102,6 @@
                                 "</div>"
                             );
                         }
-                        contribute_num = 0;
                     }
                 },"json")
                 .error(function(json) {

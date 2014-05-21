@@ -28,7 +28,7 @@ class Tweet extends CI_Controller {
         if ($this->form_validation->run() === false) {
             $data['tweet'] = $this->tweet_model->get_tweet($user_id);
             $this->load->view('contribute',$data);
-        } 
+        }
     }
 
     public function logout()
