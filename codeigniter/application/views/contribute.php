@@ -14,7 +14,7 @@
             float: left;
         }
 
-        #right,
+        .right,
         #right_add {
             float: right;
             padding-left: 30px;
@@ -33,10 +33,9 @@
 
         $(function() {
             //　時刻変換処理の記述
-            $("#right").each(function() {
+            $(".right").each(function() {
                 var myNow = new Date();
                 var changeTime =  myNow.getTime();
-                console.log(changeTime);
 
                 var tweetTime = $(this).text();
                 var registTime = new Date(tweetTime);
@@ -46,9 +45,9 @@
                 var hour_time = Math.floor(time/ 1000 / 60 / 60);
                 if (hour_time >= 24) {
                     var day_time = Math.floor(hour_time / 24);
-                    $("#right").html(day_time + "日前");
+                    $(this).html(day_time + "日前");
                 } else {
-                    $("#right").html(hour_time + "時間前");
+                    $(this).html(hour_time + "時間前");
                 }
             });
 
@@ -147,7 +146,7 @@
                 <div id="left">
                     <?php echo $tweet_item['name'] ?>
                 </div>
-                <div id='right'>
+                <div class='right'>
                     <?php echo $tweet_item['create_at'] ?>
                 </div>
                 <p class="tweet-sentence">
