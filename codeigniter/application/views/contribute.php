@@ -7,7 +7,7 @@
     <style type="text/css">
         .tweet{display: inline;}
 
-        #left,
+        .left,
         #result_add {
             padding-left: 30px;
             padding-right: 30px;
@@ -31,24 +31,46 @@
         var num = 0;
         var contribute_num = 0;
 
+        function timeChange(tweetTime) {
+            var registTime = new Date(tweetTime);
+            var tweetChangeTime = registTime.getTime();
+
+            var myNow = new Date();
+            var changeTime =  myNow.getTime();
+
+            var time = changeTime - tweetChangeTime;
+            var hour_time = Math.floor(time/ 1000 / 60 / 60);
+            if (hour_time >= 24) {
+                var day_time = Math.floor(hour_time / 24);
+                return (day_time + "日前");
+                //$(this).html(day_time + "日前");
+            } else {
+                return (hour_time + "時間前");
+                //$(this).html(hour_time + "時間前");
+            }
+            //return hour_time;
+        }
+
         $(function() {
             //　時刻変換処理の記述
             $(".right").each(function() {
-                var myNow = new Date();
-                var changeTime =  myNow.getTime();
-
                 var tweetTime = $(this).text();
-                var registTime = new Date(tweetTime);
-                var tweetChangeTime = registTime.getTime();
-                var time = changeTime - tweetChangeTime;
+                //var registTime = new Date(tweetTime);
+                //var myNow = new Date();
+                //var changeTime =  myNow.getTime();
+                //var tweetChangeTime = registTime.getTime();
+                resultTime = timeChange(tweetTime);
+                // var time = changeTime - tweetChangeTime;
                 // ミリ秒単位での表示のため
-                var hour_time = Math.floor(time/ 1000 / 60 / 60);
-                if (hour_time >= 24) {
-                    var day_time = Math.floor(hour_time / 24);
-                    $(this).html(day_time + "日前");
-                } else {
-                    $(this).html(hour_time + "時間前");
-                }
+                //var hour_time = Math.floor(time/ 1000 / 60 / 60);
+                //if (hour_time >= 24) {
+                    //var day_time = Math.floor(hour_time / 24);
+                //if (resultTime === ) {
+                    ///$(this).html(resultTime + "日前");
+                    //return;
+                //} else {
+                $(this).html(resultTime);
+                //}
             });
 
             // ツイート投稿時
@@ -143,7 +165,7 @@
         <div id="tweetInsert"></div>
         <?php foreach ($tweet as $tweet_item):?>
             <div class="wrapper">
-                <div id="left">
+                <div class="left">
                     <?php echo $tweet_item['name'] ?>
                 </div>
                 <div class='right'>
