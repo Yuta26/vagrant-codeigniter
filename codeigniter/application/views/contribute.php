@@ -43,34 +43,20 @@
             if (hour_time >= 24) {
                 var day_time = Math.floor(hour_time / 24);
                 return (day_time + "日前");
-                //$(this).html(day_time + "日前");
+            } else if (hour_time == 0) {
+                return ("１時間以内");
             } else {
                 return (hour_time + "時間前");
-                //$(this).html(hour_time + "時間前");
             }
-            //return hour_time;
+
         }
 
         $(function() {
             //　時刻変換処理の記述
             $(".right").each(function() {
                 var tweetTime = $(this).text();
-                //var registTime = new Date(tweetTime);
-                //var myNow = new Date();
-                //var changeTime =  myNow.getTime();
-                //var tweetChangeTime = registTime.getTime();
                 resultTime = timeChange(tweetTime);
-                // var time = changeTime - tweetChangeTime;
-                // ミリ秒単位での表示のため
-                //var hour_time = Math.floor(time/ 1000 / 60 / 60);
-                //if (hour_time >= 24) {
-                    //var day_time = Math.floor(hour_time / 24);
-                //if (resultTime === ) {
-                    ///$(this).html(resultTime + "日前");
-                    //return;
-                //} else {
                 $(this).html(resultTime);
-                //}
             });
 
             // ツイート投稿時
@@ -81,6 +67,7 @@
                 } else {
                     var str = $("#tweet_form").serialize();
                     $.getJSON("tweetadd",str, function(result) {
+                        result.time = timeChange(result.time);
                         $("#tweetInsert").prepend(
                             "<div class='wrapper'>" +
                                 "<div id='left_add'>" +
@@ -109,6 +96,7 @@
                         $("#read_button").hide();
                     } else {
                         for (var i = 0 ; i < response.length ; i++) {
+                            response[i].time = timeChange(response[i].time);
                             $("#tweetRead").before(
                                 "<div class='wrapper'>" +
                                     "<div id='left_add'>" +
