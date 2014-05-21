@@ -48,8 +48,7 @@
             } else {
                 return (hour_time + "時間前");
             }
-
-        }
+        };
 
         $(function() {
             //　時刻変換処理の記述
