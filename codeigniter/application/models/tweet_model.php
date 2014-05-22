@@ -41,17 +41,18 @@ class Tweet_model extends CI_Model {
             'content' => $content,
             'user_id' => $user_id,
         );
-        return $this->db->insert('tweet',$data);
+        $this->db->insert('tweet',$data);
+        return $this->db->insert_id();
     }
 
     // ツイート投稿に伴う、名前の取得
-    public function get_name($user_id)
+    public function get_name($user_id, $tweet_id)
     {
+        $this->db->from('tweet');
+        $this->db->where(array('tweet_id' => $tweet_id));
         $this->db->join('user', 'user.user_id = tweet.user_id');
         $this->db->select('name, tweet.create_at');
-        $this->db->where(array('tweet.user_id' => $user_id));
-        $this->db->order_by('tweet.create_at', 'desc');
-        $query = $this->db->get('tweet',1);
+        $query = $this->db->get();
         return $query->row_array();
     }
 

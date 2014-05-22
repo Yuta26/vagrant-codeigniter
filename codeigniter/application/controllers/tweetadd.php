@@ -14,10 +14,10 @@ class Tweetadd extends CI_Controller {
         $user_id = $this->session->userdata('user_id');
         $content = $this->input->get("content");
         $content = $this->security->xss_clean($content);
-        $this->tweet_model->insert_tweet($content, $user_id);
-        $row = $this->tweet_model->get_name($user_id);
+        $tweet_id = $this->tweet_model->insert_tweet($content, $user_id);
+        $row = $this->tweet_model->get_name($user_id, $tweet_id);
         $data = array(
-            "content"=>$content,
+            "content" => $content,
             "name" => $row['name'],
             "time" => $row['create_at']
         );
