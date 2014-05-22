@@ -7,15 +7,13 @@
     <style type="text/css">
         .tweet{display: inline;}
 
-        .left,
-        #result_add {
+        .left {
             padding-left: 30px;
             padding-right: 30px;
             float: left;
         }
 
-        .right,
-        #right_add {
+        .right {
             float: right;
             padding-left: 30px;
             padding-right: 30px;
@@ -51,6 +49,7 @@
         };
 
         $(function() {
+            $("#add_wrapper").hide();
             //　時刻変換処理の記述
             $(".right").each(function() {
                 var tweetTime = $(this).text();
@@ -67,19 +66,10 @@
                     var str = $("#tweet_form").serialize();
                     $.getJSON("tweetadd",str, function(result) {
                         result.time = timeChange(result.time);
-                        $("#tweetInsert").prepend(
-                            "<div class='wrapper'>" +
-                                "<div id='left_add'>" +
-                                    result.name +
-                                "</div>" +
-                                "<div id='right_add'>" +
-                                    result.time +
-                                "</div>" +
-                                "<p>" +
-                                    result.content +
-                                "</p>" +
-                            "</div>"
-                        );
+                        var div = $("#add_wrapper").children().clone().prependTo("#tweet_list"); 
+                        $(".left",div).text(result.name);
+                        $(".right",div).text(result.time);
+                        $(".tweet-sentence",div).text(result.content);
                     },"json");
                     $("#form_text").attr("value", "");
                     contribute_num++;
@@ -149,20 +139,30 @@
             <?php echo form_button($tweet_button,'ツイート'); ?>
         </form>
         </br>
-        <div id="tweetInsert"></div>
-        <?php foreach ($tweet as $tweet_item):?>
+
+        <!-- ツイート投稿による追加 -->
+        <div id="add_wrapper">
             <div class="wrapper">
-                <div class="left">
-                    <?php echo $tweet_item['name'] ?>
-                </div>
-                <div class='right'>
-                    <?php echo $tweet_item['create_at'] ?>
-                </div>
-                <p class="tweet-sentence">
-                    <?php echo $tweet_item['content'] ?>
-                </p>
+                <div class="left"></div>
+                <div class="right"></div>
+                <p class="tweet-sentence"></p>
             </div>
-        <?php endforeach ?>
+        </div>
+        <div id="tweet_list">
+            <?php foreach ($tweet as $tweet_item):?>
+                <div class="wrapper">
+                    <div class="left">
+                        <?php echo $tweet_item['name'] ?>
+                    </div>
+                    <div class='right'>
+                        <?php echo $tweet_item['create_at'] ?>
+                    </div>
+                    <p class="tweet-sentence">
+                        <?php echo $tweet_item['content'] ?>
+                    </p>
+                </div>
+            <?php endforeach ?>
+        </div>
         <div id="tweetRead"></div>
         </br>
         <?php $read_button = array('id' => "read_button"); ?>
