@@ -64,7 +64,7 @@
                     $("#alert").html("何も入力されていません");
                 } else {
                     var str = $("#tweet_form").serialize();
-                    $.getJSON("tweetadd",str, function(result) {
+                    $.post("tweetadd",str, function(result) {
                         result.time = timeChange(result.time);
                         var div = $("#add_wrapper").children().clone().prependTo("#tweet_list"); 
                         $(".left",div).text(result.name);

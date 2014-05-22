@@ -12,7 +12,7 @@ class Tweetadd extends CI_Controller {
         $this->load->library('form_validation');
 
         $user_id = $this->session->userdata('user_id');
-        $content = $this->input->get("content");
+        $content = $this->input->post("content");
         $content = $this->security->xss_clean($content);
         $tweet_id = $this->tweet_model->insert_tweet($content, $user_id);
         $row = $this->tweet_model->get_name($user_id, $tweet_id);
@@ -26,6 +26,7 @@ class Tweetadd extends CI_Controller {
     }
 
      public function read() {
+        log_message('error','あああ');
         $this->load->library('session');
         $user_id = $this->session->userdata('user_id');
         $num = $this->input->get("num");
