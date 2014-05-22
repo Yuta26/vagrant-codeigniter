@@ -22,11 +22,11 @@ class Tweetadd extends CI_Controller {
             "time" => $row['create_at']
         );
         $result = $data;
+        header('Content-type:application/json; charset=utf8');
         echo json_encode($result);
     }
 
      public function read() {
-        log_message('error','あああ');
         $this->load->library('session');
         $user_id = $this->session->userdata('user_id');
         $num = $this->input->get("num");
@@ -40,6 +40,7 @@ class Tweetadd extends CI_Controller {
                 "time" => $result["create_at"]
             );
         }
+        header('Content-type:application/json; charset=utf8');
         echo json_encode($response);
     }
 }
