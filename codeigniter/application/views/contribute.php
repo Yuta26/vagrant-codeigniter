@@ -86,19 +86,10 @@
                     } else {
                         for (var i = 0 ; i < response.length ; i++) {
                             response[i].time = timeChange(response[i].time);
-                            $("#tweetRead").before(
-                                "<div class='wrapper'>" +
-                                    "<div id='left_add'>" +
-                                        response[i].name +
-                                    "</div>" +
-                                    "<div id='right_add'>" +
-                                        response[i].time +
-                                    "</div>" +
-                                    "<p>" +
-                                        response[i].content +
-                                    "</p>" +
-                                "</div>"
-                            );
+                            var div = $("#add_wrapper").children().clone().appendTo("#tweet_list");
+                            $(".left",div).text(response[i].name);
+                            $(".right",div).text(response[i].time);
+                            $(".tweet-sentence",div).text(response[i].content);
                         }
                     }
                 },"json")
