@@ -68,14 +68,7 @@ class Tweet_model extends CI_Model {
     //追加で１０件読み込む処理
     public function read_tweet($user_id, $num, $contribute_num, $add_tweet)
     {
-        $tweet_num = $this->read_tweet_query($user_id)->count_all('tweet');
-        $tweet_num = $tweet_num - $contribute_num - $num * $add_tweet;
-
-        if ($tweet_num >= $add_tweet) {
-            $query = $this->read_tweet_query($user_id)->get('tweet', $add_tweet, $add_tweet * $num + $contribute_num);
-        } else {
-            $query = $this->read_tweet_query($user_id)->get('tweet', $tweet_num, $add_tweet * $num + $contribute_num);
-        }
+        $query = $this->read_tweet_query($user_id)->get('tweet', $add_tweet, $add_tweet * $num + $contribute_num);
         return $query->result_array();
     }
 
