@@ -2,29 +2,9 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="../css/contribute.css"　type="text/css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
     <title>ツイート</title>
-    <style type="text/css">
-        .tweet{display: inline;}
-
-        .left {
-            padding-left: 30px;
-            padding-right: 30px;
-            float: left;
-        }
-
-        .right {
-            float: right;
-            padding-left: 30px;
-            padding-right: 30px;
-        }
-
-        .wrapper{
-            border: 1px solid #000;
-            margin-right: 300px;
-        }
-
-    </style>
     <script type="text/javascript">
         var num = 0;
         var contribute_num = 0;
