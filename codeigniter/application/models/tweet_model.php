@@ -56,19 +56,14 @@ class Tweet_model extends CI_Model {
         return $query->row_array();
     }
 
-    private function read_tweet_query($user_id)
+    //追加で１０件読み込む処理
+    public function read_tweet($user_id, $num, $contribute_num, $add_tweet)
     {
         $this->db->join('user', 'user.user_id = tweet.user_id');
         $this->db->select('name, content, tweet.create_at');
         $this->db->where(array('tweet.user_id' => $user_id));
         $this->db->order_by('tweet.create_at', 'desc');
-        return $this->db;
-    }
-
-    //追加で１０件読み込む処理
-    public function read_tweet($user_id, $num, $contribute_num, $add_tweet)
-    {
-        $query = $this->read_tweet_query($user_id)->get('tweet', $add_tweet, $add_tweet * $num + $contribute_num);
+        $query = $this->db->get('tweet', $add_tweet, $add_tweet * $num + $contribute_num);
         return $query->result_array();
     }
 }
