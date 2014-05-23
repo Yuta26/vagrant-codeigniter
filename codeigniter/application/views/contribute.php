@@ -63,7 +63,7 @@
     </div>
     <div id="tweetRead"></div>
     </br>
-    <?php $read_button = array('id' => "read_button"); ?>
+    <?php $read_button = array('id' => 'read_button'); ?>
     <?php echo form_button($read_button,'もっと見る'); ?>
   </div>
 </body>

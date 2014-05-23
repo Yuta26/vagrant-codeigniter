@@ -1,5 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+<?php
 class Login extends CI_Controller {
 
     public function __construct()
@@ -27,7 +26,7 @@ class Login extends CI_Controller {
 
         $adress = $this->input->post('adress');
         $pass = $this->input->post('password');
-        $encryption_pass = do_hash($pass); // SHA1
+        $encryption_pass = do_hash($pass);
         $login_check = $this->user_model->login_check($adress, $encryption_pass);
 
         if ($login_check === false) {
@@ -45,18 +44,14 @@ class Login extends CI_Controller {
 
     function adress_check($str)
     {
-        if ($str == '') {
+        if (!$str) {
             $this->form_validation->set_message('adress_check', 'メールアドレスを入力してください');
             return false;
-        } elseif ((valid_email($str)) === false) {
+        }
+        if ((valid_email($str)) === false) {
             $this->form_validation->set_message('adress_check', 'メールアドレスの形式ではありません');
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 }
-
-
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */

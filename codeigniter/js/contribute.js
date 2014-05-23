@@ -14,12 +14,12 @@ function timeChange(tweetTime) {
   var hourTime = Math.floor(time/ 1000 / 60 / 60);
   if (hourTime >= 24) {
     var dayTime = Math.floor(hourTime / 24);
-    return (dayTime + "日前");
+    return dayTime + "日前";
   }
   if (hourTime == 0) {
-    return ("１時間以内");
+    return "１時間以内";
   }
-  return (hourTime + "時間前");
+  return hourTime + "時間前";
 }
 
 $(function() {

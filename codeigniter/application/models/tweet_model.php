@@ -71,5 +71,4 @@ class Tweet_model extends CI_Model {
         $query = $this->read_tweet_query($user_id)->get('tweet', $add_tweet, $add_tweet * $num + $contribute_num);
         return $query->result_array();
     }
-
 }

@@ -26,7 +26,7 @@ class Regist extends CI_Controller {
         }
         $adress = $this->input->post('adress');
         $pass = $this->input->post('password');
-        $encryption_pass = do_hash($pass); // SHA1
+        $encryption_pass = do_hash($pass);
         $name = $this->input->post('name');
         $this->user_model->add_user($name, $adress, $encryption_pass);
 
@@ -39,18 +39,19 @@ class Regist extends CI_Controller {
 
     function adress_check($str)
     {
-        if ($str == '') {
+        if (!$str) {
             $this->form_validation->set_message('adress_check', 'メールアドレスを入力してください');
             return false;
-        } elseif ((valid_email($str)) === false) {
+        }
+        if ((valid_email($str)) === false) {
             $this->form_validation->set_message('adress_check', 'メールアドレスの形式ではありません');
-                return false;
-        } elseif ($this->user_model->check_adress($str) === true) {
+            return false;
+        }
+        if ($this->user_model->check_adress($str) === true) {
             $this->form_validation->set_message('adress_check','既に登録されたアドレスです');
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 }
 
