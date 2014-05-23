@@ -1,5 +1,8 @@
 <?php
-class Tweet extends CI_Controller {
+class Tweet extends CI_Controller
+{
+    //ツイート読み込み件数　10件
+    const TWEET = 10;
 
     public function __construct()
     {
@@ -9,9 +12,6 @@ class Tweet extends CI_Controller {
 
     public function index()
     {
-        // ツイート初期読み込み変数
-        $download_tweet = 10;
-
         $this->load->library('session');
         $this->load->library('form_validation');
         $this->load->helper('url');
@@ -29,7 +29,7 @@ class Tweet extends CI_Controller {
         $this->form_validation->set_rules('content', 'ツイート', 'required');
 
         if ($this->form_validation->run() === false) {
-            $data['tweet'] = $this->tweet_model->get_tweet($user_id, $download_tweet);
+            $data['tweet'] = $this->tweet_model->get_tweet($user_id, self::TWEET);
             $this->load->view('contribute',$data);
         }
     }

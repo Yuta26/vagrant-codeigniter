@@ -19,13 +19,13 @@ class Tweet_model extends CI_Model {
     }
 
     // 最初にツイートを１０件読み出す処理
-    public function get_tweet($user_id, $download_tweet)
+    public function get_tweet($user_id, $tweet)
     {
         $this->db->join('user', 'user.user_id = tweet.user_id');
         $this->db->select('name, content, tweet.create_at');
         $this->db->order_by('tweet.create_at','desc');
         $this->db->where(array('tweet.user_id' => $user_id));
-        $query = $this->db->get('tweet', $download_tweet);
+        $query = $this->db->get('tweet', $tweet);
         return $query->result_array();
     }
 
@@ -45,7 +45,6 @@ class Tweet_model extends CI_Model {
         return $this->db->insert_id();
     }
 
-    // ツイート投稿に伴う、名前の取得
     public function get_name($tweet_id)
     {
         $this->db->from('tweet');
