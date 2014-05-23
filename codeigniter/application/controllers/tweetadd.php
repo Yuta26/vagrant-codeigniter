@@ -16,14 +16,7 @@ class Tweetadd extends CI_Controller {
         $content = $this->security->xss_clean($content);
         $tweet_id = $this->tweet_model->insert_tweet($content, $user_id);
         $row = $this->tweet_model->get_name($user_id, $tweet_id);
-        $data = array(
-            'content' => $content,
-            'name' => $row['name'],
-            'time' => $row['create_at']
-        );
-        $result = $data;
-        header('Content-type:application/json; charset=utf8');
-        echo json_encode($result);
+        $this->output->set_content_type('application/json')->set_output(json_encode(array('content' => $content, 'name' => $row['name'], 'time' => $row['create_at'])));
     }
 
      public function read() {
@@ -41,7 +34,6 @@ class Tweetadd extends CI_Controller {
                 'time' => $result['create_at']
             );
         }
-        header('Content-type:application/json; charset=utf8');
-        echo json_encode($response);
+        $this->output->set_content_type('application/json')->set_output(json_encode($response));
     }
 }
