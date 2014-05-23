@@ -39,7 +39,7 @@ $(function() {
       $("#alert").html("何も入力されていません");
     } else {
       var str = $("#tweet_form").serialize();
-      $.post("tweetadd",str, function(result) {
+      $.post("tweet/insert",str, function(result) {
         var div = $("#add_wrapper").children().clone().prependTo("#tweet_list"); 
         $(".left",div).text(result.name);
         $(".right",div).text(timeChange(result.time));
@@ -54,7 +54,7 @@ $(function() {
   $("#read_button").click(function() {
     loadClickNum++;
     var offset = loadClickNum * tweetLoadNum + tweetAddNum;
-    $.getJSON("tweetadd/read", {"offset": offset, "limit" : tweetLoadNum}, function(response) {
+    $.getJSON("tweet/read", {"offset": offset, "limit" : tweetLoadNum}, function(response) {
       for (var i = 0 ; i < response.length ; i++) {
         var div = $("#add_wrapper").children().clone().appendTo("#tweet_list");
         $(".left",div).text(response[i].name);
