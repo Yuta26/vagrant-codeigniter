@@ -1,9 +1,9 @@
 .tweet{display: inline;}
 
 .left {
+  float: left;
   padding-left: 30px;
   padding-right: 30px;
-  float: left;
 }
 
 .right {

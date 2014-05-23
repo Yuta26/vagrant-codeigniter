@@ -1,10 +1,7 @@
-"http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"
-
-
 var num = 0;
-var contribute_num = 0;
+var contributeNum = 0;
 //　追加ツイート数
-var add_tweet = 10;
+var addTweet = 10;
 
 function timeChange(tweetTime) {
   var registTime = new Date(tweetTime);
@@ -14,16 +11,16 @@ function timeChange(tweetTime) {
   var changeTime =  myNow.getTime();
 
   var time = changeTime - tweetChangeTime;
-  var hour_time = Math.floor(time/ 1000 / 60 / 60);
-  if (hour_time >= 24) {
-    var day_time = Math.floor(hour_time / 24);
-    return (day_time + "日前");
-  } else if (hour_time == 0) {
-    return ("１時間以内");
-  } else {
-    return (hour_time + "時間前");
+  var hourTime = Math.floor(time/ 1000 / 60 / 60);
+  if (hourTime >= 24) {
+    var dayTime = Math.floor(hourTime / 24);
+    return (dayTime + "日前");
   }
-};
+  if (hourTime == 0) {
+    return ("１時間以内");
+  }
+  return (hourTime + "時間前");
+}
 
 $(function() {
   $("#add_wrapper").hide();
@@ -37,7 +34,7 @@ $(function() {
   // ツイート投稿時
   $("#tweet_button").click(function() {
     var text = $("#form_text").val();
-    if (text == "") {
+    if (!text) {
       $("#alert").html("何も入力されていません");
     } else {
       var str = $("#tweet_form").serialize();
@@ -49,14 +46,14 @@ $(function() {
         $(".tweet-sentence",div).text(result.content);
       },"json");
       $("#form_text").attr("value", "");
-      contribute_num++;
+      contributeNum++;
     }
   });
 
   //　「もっと見る」ボタンの実装
   $("#read_button").click(function() {
     num++;
-    $.getJSON("tweetadd/read", {"num" : num, "contribute_num" : contribute_num}, function(response) {
+    $.getJSON("tweetadd/read", {"num" : num, "contribute_num" : contributeNum}, function(response) {
       for (var i = 0 ; i < response.length ; i++) {
         response[i].time = timeChange(response[i].time);
         var div = $("#add_wrapper").children().clone().appendTo("#tweet_list");
@@ -64,7 +61,7 @@ $(function() {
         $(".right",div).text(response[i].time);
         $(".tweet-sentence",div).text(response[i].content);
       }
-      if (response.length < add_tweet) {
+      if (response.length < addTweet) {
         $("#tweetRead").before("<p>読み込めるツイートはありません</p>");
         $("#read_button").hide();
       }
