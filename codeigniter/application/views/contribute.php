@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="../css/contribute.css"　type="text/css">
+    <script type="text/javascript" src="../js/contribute.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
     <title>ツイート</title>
     <script type="text/javascript">
