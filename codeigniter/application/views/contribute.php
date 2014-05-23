@@ -8,6 +8,7 @@
   <title>ツイート</title>
 </head>
 <body>
+<input type="hidden" name="TWEET" value=10 id="tweet" />
   <div id="container">
     <!-- ログアウトボタンの実装 -->
     <?php echo validation_errors(); ?>

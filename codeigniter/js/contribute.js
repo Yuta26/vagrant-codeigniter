@@ -1,7 +1,3 @@
-var num = 0;
-var contributeNum = 0;
-//　追加ツイート数
-var addTweet = 10;
 
 function timeChange(tweetTime) {
   var registTime = new Date(tweetTime);
@@ -23,12 +19,18 @@ function timeChange(tweetTime) {
 }
 
 $(function() {
+  //ツイート読み込み用の定数を取得
+  var tweetLoadNum = $("#tweet").val();
+  var loadClickNum = 0;
+  var tweetAddNum = 0;
+
   $("#add_wrapper").hide();
   //　時刻変換処理の記述
   $(".right").each(function() {
     var tweetTime = $(this).text();
     $(this).html(timeChange(tweetTime));
   });
+
 
   // ツイート投稿時
   $("#tweet_button").click(function() {
@@ -44,24 +46,26 @@ $(function() {
         $(".tweet-sentence",div).text(result.content);
       },"json");
       $("#form_text").attr("value", "");
-      contributeNum++;
+      tweetAddNum++;
     }
   });
 
   //　「もっと見る」ボタンの実装
   $("#read_button").click(function() {
-    num++;
-    $.getJSON("tweetadd/read", {"num" : num, "contribute_num" : contributeNum}, function(response) {
+    loadClickNum++;
+    var offset = loadClickNum * tweetLoadNum + tweetAddNum;
+    $.getJSON("tweetadd/read", {"offset": offset, "limit" : tweetLoadNum}, function(response) {
       for (var i = 0 ; i < response.length ; i++) {
-        response[i].time = timeChange(response[i].time);
         var div = $("#add_wrapper").children().clone().appendTo("#tweet_list");
         $(".left",div).text(response[i].name);
-        $(".right",div).text(response[i].time);
+        $(".right",div).text(timeChange(response[i].time));
         $(".tweet-sentence",div).text(response[i].content);
+        console.log(response.length);
       }
-      if (response.length < addTweet) {
+      if (response.length < tweetLoadNum) {
         $("#tweetRead").before("<p>読み込めるツイートはありません</p>");
         $("#read_button").hide();
+        console.log(response.length);
       }
     },"json")
     .error(function(json) {

@@ -15,17 +15,16 @@ class Tweetadd extends CI_Controller {
         $content = $this->input->post('content');
         $content = $this->security->xss_clean($content);
         $tweet_id = $this->tweet_model->insert_tweet($content, $user_id);
-        $row = $this->tweet_model->get_name($user_id, $tweet_id);
+        $row = $this->tweet_model->get_name($tweet_id);
         $this->output->set_content_type('application/json')->set_output(json_encode(array('content' => $content, 'name' => $row['name'], 'time' => $row['create_at'])));
     }
 
      public function read() {
-        $add_tweet = 10;
         $this->load->library('session');
         $user_id = $this->session->userdata('user_id');
-        $num = $this->input->get("num");
-        $contribute_num = $this->input->get('contribute_num');
-        $data = $this->tweet_model->read_tweet($user_id ,$num, $contribute_num, $add_tweet);
+        $offset = $this->input->get('offset');
+        $limit = $this->input->get('limit');
+        $data = $this->tweet_model->read_tweet($user_id , $limit, $offset);
         $response = array();
         foreach($data as $result) {
             $response[] = array(
