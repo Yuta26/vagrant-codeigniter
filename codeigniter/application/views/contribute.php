@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <link rel="stylesheet" href="../css/contribute.css"　type="text/css">
+  <link rel="stylesheet" href="<?=base_url();?>css/contribute.css"　type="text/css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
-  <script type="text/javascript" src="../js/contribute.js"></script>
+  <script type="text/javascript" src="<?=base_url();?>js/contribute.js"></script>
   <title>ツイート</title>
 </head>
 <body>
+  <!-- 「もっと見る」でDBからツイートを取り出す際に使用 -->
   <input type="hidden" value=10 id="offset" />
   <input type="hidden" value=10 id="limit" />
-
   <div id="container">
     <!-- ログアウトボタンの実装 -->
     <?php echo validation_errors(); ?>
@@ -21,8 +21,7 @@
 
     <!-- ツイート機能の実装 -->
     <div id="alert"></div>
-    <?php $attributes = array('id' => 'tweet_form'); ?>
-    <?php echo form_open('tweetadd', $attributes); ?>
+    <?php echo form_open('tweetadd', array('id ' => 'tweet_form')); ?>
       <?php
         $tweet_data = array(
           'name' => 'content',
@@ -33,11 +32,8 @@
         );
         echo form_textarea($tweet_data);
       ?>
-      <?php
-        $tweet_button = array('id' => 'tweet_button');
-      ?>
       </br>
-      <?php echo form_button($tweet_button,'ツイート'); ?>
+      <?php echo form_button(array('id' => 'tweet_button'),'ツイート'); ?>
     </form>
     </br>
 
@@ -49,6 +45,7 @@
         <p class="tweet-sentence"></p>
       </div>
     </div>
+
     <div id="tweet_list">
       <?php foreach ($tweet as $tweet_item):?>
         <div class="wrapper">
@@ -66,8 +63,7 @@
     </div>
     <div id="tweetRead"></div>
     </br>
-    <?php $read_button = array('id' => 'read_button'); ?>
-    <?php echo form_button($read_button,'もっと見る'); ?>
+    <?php echo form_button(array('id' => 'read_button'),'もっと見る'); ?>
   </div>
 </body>
 </html>

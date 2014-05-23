@@ -36,8 +36,6 @@ class Login extends CI_Controller {
         }
 
         $user_id = $this->user_model->get_user_id($adress);
-        // sessionへのデータの書き込みを行う
-        $this->session->set_userdata('name', $name);
         $this->session->set_userdata('user_id', $user_id);
         redirect('/tweet/','location');
     }

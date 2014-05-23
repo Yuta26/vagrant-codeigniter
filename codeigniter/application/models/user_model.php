@@ -41,7 +41,7 @@ class User_model extends CI_Model {
         $this->db->select('user_id')->from('user')->where(array('adress' => $adress));
         $query_check = $this->db->get();
         if ($query_check->num_rows() > 0) {
-            foreach ($query_check->result_array() as $row);
+            foreach ($query_check->row_array() as $row);
             return $row['user_id'];
         }
     }
