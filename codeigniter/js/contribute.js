@@ -27,8 +27,7 @@ $(function() {
   //　時刻変換処理の記述
   $(".right").each(function() {
     var tweetTime = $(this).text();
-    resultTime = timeChange(tweetTime);
-    $(this).html(resultTime);
+    $(this).html(timeChange(tweetTime));
   });
 
   // ツイート投稿時
@@ -39,10 +38,9 @@ $(function() {
     } else {
       var str = $("#tweet_form").serialize();
       $.post("tweetadd",str, function(result) {
-        result.time = timeChange(result.time);
         var div = $("#add_wrapper").children().clone().prependTo("#tweet_list"); 
         $(".left",div).text(result.name);
-        $(".right",div).text(result.time);
+        $(".right",div).text(timeChange(result.time));
         $(".tweet-sentence",div).text(result.content);
       },"json");
       $("#form_text").attr("value", "");
