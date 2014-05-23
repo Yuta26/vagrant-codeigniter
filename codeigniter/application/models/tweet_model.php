@@ -10,12 +10,11 @@ class Tweet_model extends CI_Model {
     public function check_user($user_id)
     {
         $query = $this->db->get_where('user',array('user_id' => $user_id));
-        $db_user_id = $query->result_array();
-        if ($db_user_id == true) {
-            return true;
-        } else {
+        $db_user_id = $query->row_array();
+        if (empty($db_user_id)) {
             return false;
         }
+        return true;
     }
 
     // 最初にツイートを１０件読み出す処理
@@ -45,7 +44,7 @@ class Tweet_model extends CI_Model {
         return $this->db->insert_id();
     }
 
-    public function get_name($tweet_id)
+    public function tweet_info($tweet_id)
     {
         $this->db->from('tweet');
         $this->db->where(array('tweet_id' => $tweet_id));

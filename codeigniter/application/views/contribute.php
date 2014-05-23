@@ -13,7 +13,7 @@
     <!-- ログアウトボタンの実装 -->
     <?php echo validation_errors(); ?>
     <?php echo form_open('tweet/logout'); ?>
-      <?php echo form_submit('','ログアウト') ?>
+    <?php echo form_submit('','ログアウト') ?>
     </form>
     <?php echo '</br>'; ?>
 

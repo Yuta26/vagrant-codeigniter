@@ -53,7 +53,7 @@ class Tweet extends CI_Controller
         $content = $this->input->post('content');
         $content = $this->security->xss_clean($content);
         $tweet_id = $this->tweet_model->insert_tweet($content, $user_id);
-        $row = $this->tweet_model->get_name($tweet_id);
+        $row = $this->tweet_model->tweet_info($tweet_id);
         $this->output->set_content_type('application/json')->set_output(json_encode(array('content' => $content, 'name' => $row['name'], 'time' => $row['create_at'])));
     }
 
