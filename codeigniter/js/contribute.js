@@ -1,3 +1,6 @@
+"http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"
+
+
 var num = 0;
 var contribute_num = 0;
 //　追加ツイート数
