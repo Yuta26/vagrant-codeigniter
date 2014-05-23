@@ -9,6 +9,9 @@ class Tweet extends CI_Controller {
 
     public function index()
     {
+        // ツイート初期読み込み変数
+        $download_tweet = 10;
+
         $this->load->library('session');
         $this->load->library('form_validation');
         $this->load->helper('url');
@@ -26,7 +29,7 @@ class Tweet extends CI_Controller {
         $this->form_validation->set_rules('content', 'ツイート', 'required');
 
         if ($this->form_validation->run() === false) {
-            $data['tweet'] = $this->tweet_model->get_tweet($user_id);
+            $data['tweet'] = $this->tweet_model->get_tweet($user_id, $download_tweet);
             $this->load->view('contribute',$data);
         }
     }

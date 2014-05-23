@@ -28,6 +28,8 @@
     <script type="text/javascript">
         var num = 0;
         var contribute_num = 0;
+        //　追加ツイート数
+        var add_tweet = 10;
 
         function timeChange(tweetTime) {
             var registTime = new Date(tweetTime);
@@ -80,17 +82,16 @@
             $("#read_button").click(function() {
                 num++;
                 $.getJSON("tweetadd/read", {"num" : num, "contribute_num" : contribute_num}, function(response) {
-                    if (response.length == false) {
+                    for (var i = 0 ; i < response.length ; i++) {
+                        response[i].time = timeChange(response[i].time);
+                        var div = $("#add_wrapper").children().clone().appendTo("#tweet_list");
+                        $(".left",div).text(response[i].name);
+                        $(".right",div).text(response[i].time);
+                        $(".tweet-sentence",div).text(response[i].content);
+                    }
+                    if (response.length < add_tweet) {
                         $("#tweetRead").before("<p>読み込めるツイートはありません</p>");
                         $("#read_button").hide();
-                    } else {
-                        for (var i = 0 ; i < response.length ; i++) {
-                            response[i].time = timeChange(response[i].time);
-                            var div = $("#add_wrapper").children().clone().appendTo("#tweet_list");
-                            $(".left",div).text(response[i].name);
-                            $(".right",div).text(response[i].time);
-                            $(".tweet-sentence",div).text(response[i].content);
-                        }
                     }
                 },"json")
                 .error(function(json) {
