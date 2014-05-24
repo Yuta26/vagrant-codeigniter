@@ -40,3 +40,8 @@ body {
   background-image: url("../images/sea2.jpg");
 }
 
+#alert {
+    text-align: center;
+    font-size: 30px;
+    padding-top: 100px;
+}

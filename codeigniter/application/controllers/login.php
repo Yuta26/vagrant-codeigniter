@@ -30,7 +30,7 @@ class Login extends CI_Controller {
         $login_check = $this->user_model->login_check($adress, $encryption_pass);
 
         if ($login_check === false) {
-            echo 'メールアドレス又はパスワードが違います';
+            echo '<div id="alert">メールアドレス又はパスワードが違います</div>';
             $this->load->view('login');
             return;
         }
