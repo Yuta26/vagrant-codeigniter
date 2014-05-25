@@ -1,18 +1,87 @@
-.tweet{display: inline;}
-
 .left {
   float: left;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 50px;
+  padding-right: 50px;
+  font-size: 25px;
 }
 
 .right {
   float: right;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 50px;
+  padding-right: 50px;
+  font-size: 25px;
 }
 
-.wrapper{
+.wrapper {
   border: 1px solid #000;
-  margin-right: 300px;
+}
+
+.tweet-sentence {
+  margin : 50px;
+  word-wrap : break-word;
+  text-align: left;
+  white-space:normal;
+}
+
+#top_line {
+  background-color: black;
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.logout-btn {
+    background-color: black;
+    color : white;
+}
+
+.logout-btn:hover {
+    color: white;
+}
+
+#user_name {
+    color: white;
+    font-size: 20px;
+    display: inline;
+    vertical-align: middle;
+}
+
+#tweet_area {
+    text-align: center;
+}
+
+#tweet_button {
+    margin-left : 60%;
+}
+
+#tweet_list {
+    background-color: #FFFFCC; 
+}
+
+#tweet_list,
+#tweet_view_area {
+    text-align: center;
+}
+
+#tweet_view_area {
+    margin: 50px 20% 0 20%;
+}
+
+#read_button {
+    margin: 50px 0px 100px 0px;
+}
+
+#alert {
+    font-size: 20px;
+    color: white;
+}
+
+.not-tweet {
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+
+body {
+  /*color: #fff;*/
+  background-image: url("../images/sea2.jpg");
 }

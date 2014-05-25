@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="<?=base_url();?>css/bootstrap.min.css"　type="text/css">
   <link rel="stylesheet" href="<?=base_url();?>css/contribute.css"　type="text/css">
+
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
   <script type="text/javascript" src="<?=base_url();?>js/contribute.js"></script>
   <title>ツイート</title>
@@ -14,29 +16,37 @@
   <div id="container">
     <!-- ログアウトボタンの実装 -->
     <?php echo validation_errors(); ?>
-    <?php echo form_open('tweet/logout'); ?>
-    <?php echo form_submit('','ログアウト') ?>
-    </form>
-    <?php echo '</br>'; ?>
+    <div id="top_line">
+      <?php echo form_open('tweet/logout'); ?>
+      <div id="user_name"></div>
+      <?php echo form_submit(array(
+        'value' => 'ログアウト',
+        'class' => 'logout-btn btn btn-lg ')); ?>
+      </form>
+    </div>
 
     <!-- ツイート機能の実装 -->
+    <div id="tweet_area">
     <div id="alert"></div>
     <?php echo form_open('tweetadd', array('id ' => 'tweet_form')); ?>
       <?php
         $tweet_data = array(
           'name' => 'content',
           'id' => 'form_text',
-          'rows' => '3',
-          'cols' => '40',
+          'rows' => '4',
+          'cols' => '80',
           'maxlength' => '139'
         );
         echo form_textarea($tweet_data);
       ?>
-      </br>
-      <?php echo form_button(array('id' => 'tweet_button'),'ツイート'); ?>
+      </div>
+      <?php echo form_button(array(
+        'class' => 'btn btn-warning',
+        'id' => 'tweet_button'),'ツイート'); ?>
     </form>
     </br>
 
+    <div id="tweet_view_area">
     <!-- ツイート投稿による追加 -->
     <div id="add_wrapper">
       <div class="wrapper">
@@ -63,7 +73,10 @@
     </div>
     <div id="tweetRead"></div>
     </br>
-    <?php echo form_button(array('id' => 'read_button'),'もっと見る'); ?>
+    <?php echo form_button(array(
+      'class' => 'btn btn-warning btn-lg',
+      'id' => 'read_button'),'もっと見る'); ?>
   </div>
+</div>
 </body>
 </html>

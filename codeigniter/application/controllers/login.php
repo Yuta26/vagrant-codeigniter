@@ -52,4 +52,12 @@ class Login extends CI_Controller {
         }
         return true;
     }
+
+    public function user_name()
+    {
+        $this->load->library('session');
+        $user_id = $this->session->userdata('user_id');
+        $row = $this->user_model->get_user_name($user_id);
+        $this->output->set_content_type('application/json')->set_output(json_encode(array('name' => $row)));
+    }
 }

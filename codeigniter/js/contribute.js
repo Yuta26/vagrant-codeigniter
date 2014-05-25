@@ -27,6 +27,11 @@ $(function() {
     $(this).html(timeChange(tweetTime));
   });
 
+  $.getJSON("login/user_name", function(result) {
+    console.log(result['name']);
+    $("#user_name").text(result['name']);
+  },"json");
+
   // ツイート投稿時
   $("#tweet_button").click(function() {
     var offset = $("#offset").val();
@@ -60,7 +65,7 @@ $(function() {
         $(".tweet-sentence",div).text(response[i].content);
       }
       if (response.length < limit) {
-        $("#tweetRead").before("<p>読み込めるツイートはありません</p>");
+        $("#tweetRead").before("<div class='not-tweet'><p>読み込めるツイートはありません<p></div>");
         $("#read_button").hide();
       }
     },"json")

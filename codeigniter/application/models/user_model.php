@@ -46,6 +46,16 @@ class User_model extends CI_Model {
         }
     }
 
+    //　ツイート画面で表示するユーザー名の取得
+    public function get_user_name($user_id) {
+        $this->db->select('name')->from('user')->where(array('user_id' => $user_id));
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            foreach ($query->row_array() as $row);
+            return $row;
+        }
+    }
+
     public function check_adress($str)
     {
         $this->db->select('*')->from('user')->where(array('adress' => $str));
