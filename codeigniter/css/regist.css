@@ -1,15 +1,13 @@
-a:hover {
-    color: #ffff00;
-}
-
 #container {
   margin: 100px 400px 100px 400px;
   padding: 50px 20px 50px 20px;
   text-align: center;
 }
 
+.name-label,
 .adress-label,
 .pass-label,
+.name-input,
 .adress-input, 
 .pass-input {
   font-size: 25px;
@@ -19,6 +17,11 @@ a:hover {
   margin-left: 50px;
 }
 
+.name-label {
+  margin-left: 125px;
+}
+
+.name-input,
 .adress-input,
 .pass-input {
   color: #000;
@@ -29,19 +32,7 @@ a:hover {
   padding: 10px 100px 10px 100px;
 }
 
-.regist {
-  color: red;
-  margin-top: 20px;
-  font-size: 25px;
-}
-
 body {
   color: #fff;
   background-image: url("../images/sea2.jpg");
-}
-
-#alert {
-  text-align: center;
-  font-size: 30px;
-  padding-top: 100px;
 }

@@ -2,25 +2,36 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="<?=base_url();?>css/bootstrap.min.css"　type="text/css">
+  <link rel="stylesheet" href="<?=base_url();?>css/regist.css"　type="text/css">
+  <script src="<?=base_url();?>js/bootstrap.min.js"></script>
   <title>ユーザー登録</title>
 </head>
 <body>
   <div id="container">
     <?php echo validation_errors(); ?>
-    <?php echo form_open('regist/regist'); ?>
+    <?php echo form_open('regist/index'); ?>
 
-    <label>名前</label>
-    <?php echo form_input('name',set_value('name')); ?>
+    <label class="name-label">名前</label>
+    <?php echo form_input(array(
+        'name' => 'name',
+        'value' => set_value('name'),
+        'class' => 'name-input')); ?>
     <br />
-
-    <label>メールアドレス</label>
-    <?php echo form_input('adress',set_value('adress')); ?>
+    <label class="adress-label">メールアドレス</label>
+    <?php echo form_input(array(
+        'name' => 'adress',
+        'value' => set_value('adress'),
+        'class' => 'adress-input')); ?>
     <br />
-
-    <label>パスワード</label>
-    <?php echo form_password('password'); ?>
+    <label class="pass-label">パスワード</label>
+    <?php echo form_password(array(
+          'name' => 'password',
+          'class' => 'pass-input')); ?>
     <br />
-    <?php echo form_submit('','新規登録'); ?>
+    <?php echo form_submit(array(
+        'value' => '新規登録',
+        'class' => 'login-btn btn btn-warning btn-lg')); ?>
     </form>
   </div>
 </body>

@@ -4,7 +4,6 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" href="<?=base_url();?>css/bootstrap.min.css"　type="text/css">
   <link rel="stylesheet" href="<?=base_url();?>css/login.css"　type="text/css">
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
   <script src="<?=base_url();?>js/bootstrap.min.js"></script>
 
   <title>ログイン</title>
