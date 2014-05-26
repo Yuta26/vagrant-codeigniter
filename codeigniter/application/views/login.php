@@ -4,7 +4,6 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" href="<?=base_url();?>css/bootstrap.min.css"　type="text/css">
   <link rel="stylesheet" href="<?=base_url();?>css/login.css"　type="text/css">
-  <script src="<?=base_url();?>js/bootstrap.min.js"></script>
 
   <title>ログイン</title>
 </head>
@@ -28,7 +27,7 @@
           'class' => 'login-btn btn btn-warning btn-lg')); ?>
     </form>
     <div class="regist">
-      <a href="http://vagrant-codeigniter.local/index.php/regist/index">ユーザ登録はこちらから</a>
+      <a href="<?=base_url();?>index.php/regist/index">ユーザ登録はこちらから</a>
     </div>
   </div>
 </body>

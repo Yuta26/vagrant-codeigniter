@@ -4,7 +4,6 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" href="<?=base_url();?>css/bootstrap.min.css"　type="text/css">
   <link rel="stylesheet" href="<?=base_url();?>css/regist.css"　type="text/css">
-  <script src="<?=base_url();?>js/bootstrap.min.js"></script>
   <title>ユーザー登録</title>
 </head>
 <body>

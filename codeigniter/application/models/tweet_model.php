@@ -64,4 +64,10 @@ class Tweet_model extends CI_Model {
         $query = $this->db->get('tweet', $limit, $offset);
         return $query->result_array();
     }
+
+    public function db_tweet_num($user_id)
+    {        
+        $this->db->select('*')->from('tweet')->where(array('user_id' => $user_id));
+        return $this->db->count_all_results();
+    }
 }

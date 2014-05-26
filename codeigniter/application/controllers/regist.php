@@ -25,15 +25,11 @@ class Regist extends CI_Controller {
             return;
         }
         $adress = $this->input->post('adress');
-        $pass = $this->input->post('password');
-        $encryption_pass = do_hash($pass);
+        $encryption_pass = do_hash($this->input->post('password'));
         $name = $this->input->post('name');
         $this->user_model->add_user($name, $adress, $encryption_pass);
 
-        $user_id = $this->user_model->get_user_id($adress);
-        // sessionへのデータの書き込みを行う
-        $this->session->set_userdata('name', $name);
-        $this->session->set_userdata('user_id', $user_id);
+        $this->session->set_userdata('user_id', $this->user_model->get_user_id($adress));
         redirect('/tweet/','location');
     }
 

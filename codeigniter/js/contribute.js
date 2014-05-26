@@ -28,9 +28,20 @@ $(function() {
   });
 
   $.getJSON("login/user_name", function(result) {
-    console.log(result['name']);
     $("#user_name").text(result['name']);
   },"json");
+
+  var tweet_num = $(".wrapper").length;
+  if (tweet_num < 10) {
+    $("#read_button").hide();
+  } else {
+    $.getJSON("tweet/tweet_num", function(result) {
+      console.log(result['tweet_num']);
+      if(result['tweet_num'] == 10) {
+        $("#read_button").hide();
+      }
+    },"json");
+  }
 
   // ツイート投稿時
   $("#tweet_button").click(function() {
