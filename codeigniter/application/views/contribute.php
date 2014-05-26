@@ -10,7 +10,7 @@
 </head>
 <body>
   <!-- 「もっと見る」でDBからツイートを取り出す際に使用 -->
-  <input type="hidden" value=10 id="offset" />
+  <input type="hidden" value=0 id="offset" />
   <input type="hidden" value=10 id="limit" />
   <div id="container">
     <!-- ログアウトボタンの実装 -->
