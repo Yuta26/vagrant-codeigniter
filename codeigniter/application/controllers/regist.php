@@ -26,7 +26,7 @@ class Regist extends CI_Controller {
         }
         $adress = $this->input->post('adress');
         $encryption_pass = do_hash($this->input->post('password'));
-        $name = $this->input->post('name');
+        $name = $this->input->post('name', TRUE);
         $this->user_model->add_user($name, $adress, $encryption_pass);
 
         $this->session->set_userdata('user_id', $this->user_model->get_user_id($adress));

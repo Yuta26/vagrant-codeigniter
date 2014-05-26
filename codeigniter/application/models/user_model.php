@@ -40,7 +40,7 @@ class User_model extends CI_Model {
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             foreach ($query->row_array() as $row);
-            return $row['user_id'];
+            return $row;
         }
     }
 
