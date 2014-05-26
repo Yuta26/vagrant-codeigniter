@@ -1,15 +1,21 @@
-.left {
-  float: left;
+
+body {
+  background-image: url("../images/sea2.jpg");
+}
+
+.left,
+.right {
   padding-left: 50px;
   padding-right: 50px;
   font-size: 25px;
 }
 
+.left {
+  float: left;
+}
+
 .right {
   float: right;
-  padding-left: 50px;
-  padding-right: 50px;
-  font-size: 25px;
 }
 
 .wrapper {
@@ -17,71 +23,63 @@
 }
 
 .tweet-sentence {
-  margin : 50px;
-  word-wrap : break-word;
+  margin: 50px;
+  word-wrap: break-word;
   text-align: left;
-  white-space:normal;
+  white-space: normal;
 }
 
-#top_line {
+#topLine {
   background-color: black;
   margin-bottom: 20px;
   text-align: right;
 }
 
 .logout-btn {
-    background-color: black;
-    color : white;
+  background-color: black;
+  color: white;
 }
 
+#alert,
 .logout-btn:hover {
-    color: white;
+  color: white;
 }
 
-#user_name {
-    color: white;
-    font-size: 20px;
-    display: inline;
-    vertical-align: middle;
+#userName {
+  color: white;
+  font-size: 20px;
+  display: inline;
+  vertical-align: middle;
 }
 
-#tweet_area {
-    text-align: center;
+#tweetButton {
+  margin-left : 60%;
 }
 
-#tweet_button {
-    margin-left : 60%;
+#tweetList {
+  background-color: #FFFFCC;
 }
 
-#tweet_list {
-    background-color: #FFFFCC; 
+#tweetArea,
+#tweetList,
+#tweetViewArea {
+  text-align: center;
 }
 
-#tweet_list,
-#tweet_view_area {
-    text-align: center;
+#tweetViewArea {
+  margin: 50px 20% 0 20%;
 }
 
-#tweet_view_area {
-    margin: 50px 20% 0 20%;
+#readButton {
+  margin: 50px 0 100px 0;
 }
 
-#read_button {
-    margin: 50px 0px 100px 0px;
-}
-
-#alert {
-    font-size: 20px;
-    color: white;
+#alert,
+.not-tweet {
+  font-size: 20px;
 }
 
 .not-tweet {
-    font-size: 20px;
-    margin-top: 30px;
-}
-
-
-body {
-  /*color: #fff;*/
-  background-image: url("../images/sea2.jpg");
+  margin-top: 30px;
+  color: #CCFF66;
 }

@@ -20,68 +20,64 @@ function timeChange(tweetTime) {
 
 $(function() {
   var limit = $("#limit").val();
-  $("#add_wrapper").hide();
+  $("#addWrapper").hide();
   //　時刻変換処理の記述
   $(".right").each(function() {
     var tweetTime = $(this).text();
     $(this).html(timeChange(tweetTime));
   });
 
-  $.getJSON("login/user_name", function(result) {
-    $("#user_name").text(result['name']);
+  $.getJSON("tweet/user_name", function(result) {
+    $("#userName").text(result['name']);
   },"json");
 
-  var tweet_num = $(".wrapper").length;
-  if (tweet_num < 10) {
-    $("#read_button").hide();
+  var tweetNum = $(".wrapper").length;
+  if (tweetNum < 10) {
+    $("#readButton").hide();
   } else {
     $.getJSON("tweet/tweet_num", function(result) {
-      console.log(result['tweet_num']);
       if(result['tweet_num'] == 10) {
-        $("#read_button").hide();
+        $("#readButton").hide();
       }
     },"json");
   }
 
   // ツイート投稿時
-  $("#tweet_button").click(function() {
+  $("#tweetButton").click(function() {
     var offset = $("#offset").val();
-    var text = $("#form_text").val();
+    var text = $("#formText").val();
     if (!text) {
       $("#alert").html("何も入力されていません");
     } else {
-      var str = $("#tweet_form").serialize();
+      var str = $("#tweetForm").serialize();
       $.post("tweet/insert",str, function(result) {
-        var div = $("#add_wrapper").children().clone().prependTo("#tweet_list"); 
+        var div = $("#addWrapper").children().clone().prependTo("#tweetList");
         $(".left",div).text(result.name);
         $(".right",div).text(timeChange(result.time));
         $(".tweet-sentence",div).text(result.content);
       },"json");
-      $("#form_text").attr("value", "");
+      $("#formText").attr("value", "");
       offset++;
       $("#offset").attr("value", offset);
     }
   });
 
   //　「もっと見る」ボタンの実装
-  $("#read_button").click(function() {
+  $("#readButton").click(function() {
     var offset = $("#offset").val();
     offset = Number(offset) + Number(limit);
     $("#offset").attr("value", offset);
     $.getJSON("tweet/read", {"offset": offset, "limit" : limit}, function(response) {
       for (var i = 0 ; i < response.length ; i++) {
-        var div = $("#add_wrapper").children().clone().appendTo("#tweet_list");
+        var div = $("#addWrapper").children().clone().appendTo("#tweetList");
         $(".left",div).text(response[i].name);
         $(".right",div).text(timeChange(response[i].time));
         $(".tweet-sentence",div).text(response[i].content);
       }
       if (response.length < limit) {
         $("#tweetRead").before("<div class='not-tweet'><p>読み込めるツイートはありません<p></div>");
-        $("#read_button").hide();
+        $("#readButton").hide();
       }
-    },"json")
-    .error(function(json) {
-      console.log("失敗");
-    });
+    },"json");
   });
 });
