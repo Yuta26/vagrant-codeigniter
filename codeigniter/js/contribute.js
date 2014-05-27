@@ -29,11 +29,11 @@ $(function() {
 
   $.getJSON("tweet/button", function(result) {
     var tweetNum = $(".wrapper").length;
-    if (tweetNum < result['limit']) {
+    if (tweetNum < result['tweet_read_num']) {
       $("#readButton").hide();
     } else {
       $.getJSON("tweet/tweet_num", function(result) {
-        if(result['tweet_num'] == result['limit']) {
+        if(result['tweet_num'] == result['tweet_read_num']) {
           $("#readButton").hide();
         }
       },"json");
@@ -60,9 +60,8 @@ $(function() {
     });
 
     //　「もっと見る」ボタンの実装
-    $("#readButton").qclick(function() {
+    $("#readButton").click(function() {
       var page = $("#page").val();
-      // limitを送信する必要はあない
       $.getJSON("tweet/read", {"page": page}, function(response) {
         for (var i = 0 ; i < response.length ; i++) {
           var div = $("#addWrapper").children().clone().appendTo("#tweetList");
@@ -71,7 +70,7 @@ $(function() {
           $(".tweet-sentence",div).text(response[i].content);
         }
 
-          if (response.length < result['limit']) {
+          if (response.length < result['tweet_read_num']) {
             $("#tweetRead").before("<div class='not-tweet'><p>読み込めるツイートはありません<p></div>");
             $("#readButton").hide();
           }

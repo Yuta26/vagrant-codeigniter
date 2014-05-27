@@ -85,7 +85,7 @@ class Tweet extends CI_Controller
     }
 
     public function button() {
-        $this->output->set_content_type('application/json')->set_output(json_encode(array("limit" => self::TWEET)));
+        $this->output->set_content_type('application/json')->set_output(json_encode(array("tweet_read_num" => self::TWEET)));
     }
 
     // ツイート格納数が10件以上の場合、もっと見るボタンの表示
