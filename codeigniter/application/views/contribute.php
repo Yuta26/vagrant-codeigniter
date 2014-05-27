@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" href="<?=base_url();?>css/bootstrap.min.css"　type="text/css">
@@ -10,14 +10,12 @@
 </head>
 <body>
   <!-- 「もっと見る」でDBからツイートを取り出す際に使用 -->
-  <input type="hidden" value=0 id="offset" />
-  <input type="hidden" value=10 id="limit" />
+  <input type="hidden" value="10" id="page" />
   <div id="container">
-    <!-- ログアウトボタンの実装 -->
     <?php echo validation_errors(); ?>
     <div id="topLine">
       <?php echo form_open('tweet/logout'); ?>
-      <div id="userName"></div>
+        <div id="userName"><?php echo $name; ?></div>
       <?php echo form_submit(array(
         'value' => 'ログアウト',
         'class' => 'logout-btn btn btn-lg ')); ?>

@@ -12,9 +12,8 @@ class User_model extends CI_Model {
         $query_check = $this->db->get();
         if ($query_check->num_rows() > 0) {
              return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public function add_user($name, $adress, $encryption_pass)
@@ -39,8 +38,9 @@ class User_model extends CI_Model {
         $this->db->select('user_id')->from('user')->where(array('adress' => $adress));
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
-            foreach ($query->row_array() as $row);
-            return $row;
+            foreach ($query->row_array() as $row) {
+                return $row;
+            }
         }
     }
 
@@ -48,8 +48,9 @@ class User_model extends CI_Model {
         $this->db->select('name')->from('user')->where(array('user_id' => $user_id));
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
-            foreach ($query->row_array() as $row);
-            return $row;
+            foreach ($query->row_array() as $row) {
+                return $row;
+            }
         }
     }
 
@@ -59,8 +60,7 @@ class User_model extends CI_Model {
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 }
