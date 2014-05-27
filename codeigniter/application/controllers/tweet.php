@@ -96,15 +96,5 @@ class Tweet extends CI_Controller
         $tweet_num = $this->tweet_model->db_tweet_num($user_id);
         $this->output->set_content_type('application/json')->set_output(json_encode(array('tweet_num' => $tweet_num)));
     }
-
-    public function user_name()
-    {
-        $this->load->library('session');
-        $user_id = $this->session->userdata('user_id');
-        if ($user_id == true) {
-            $row = $this->user_model->get_user_name($user_id);
-        }
-        $this->output->set_content_type('application/json')->set_output(json_encode(array('name' => $row)));
-    }
 }
 
