@@ -15,6 +15,11 @@ class Regist extends CI_Controller {
 
     public function index()
     {
+        $session_user_id = $this->session->userdata('user_id');
+        if ($session_user_id == true ) {
+            redirect('/tweet/','location');
+        }
+
         $this->form_validation->set_rules('name', '名前', 'required');
         $this->form_validation->set_rules('address', 'メールアドレス', 'callback_address_check');
         $this->form_validation->set_rules('password', 'パスワード', 'required|min_length[6]|alpha_numeric');
@@ -23,6 +28,7 @@ class Regist extends CI_Controller {
             $this->load->view('regist');
             return;
         }
+
         $address = $this->input->post('address');
         $encryption_pass = do_hash($this->input->post('password'));
         $name = $this->input->post('name', TRUE);

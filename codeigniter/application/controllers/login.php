@@ -15,6 +15,11 @@ class Login extends CI_Controller {
 
     public function index()
     {
+        $session_user_id = $this->session->userdata('user_id');
+        if ($session_user_id == true ) {
+            redirect('/tweet/','location');
+        }
+
         $this->form_validation->set_rules('address', 'メールアドレス', 'callback_address_check');
         $this->form_validation->set_rules('password', 'パスワード', 'required');
 
