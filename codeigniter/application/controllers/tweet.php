@@ -84,17 +84,16 @@ class Tweet extends CI_Controller
         $this->output->set_content_type('application/json')->set_output(json_encode($pages));
     }
 
-    public function button() {
-        $this->output->set_content_type('application/json')->set_output(json_encode(array("tweet_read_num" => self::TWEET)));
-    }
-
-    // ツイート格納数が10件以上の場合、もっと見るボタンの表示
     public function tweet_num()
     {
         $this->load->library('session');
         $user_id = $this->session->userdata('user_id');
-        $tweet_num = $this->tweet_model->db_tweet_num($user_id);
-        $this->output->set_content_type('application/json')->set_output(json_encode(array('tweet_num' => $tweet_num)));
+        $all_tweet_num = $this->tweet_model->db_tweet_num($user_id);
+        $result = array(
+            'tweet_read_num' => self::TWEET,
+            'all_tweet_num' => $all_tweet_num
+        );
+        $this->output->set_content_type('application/json')->set_output(json_encode($result));
     }
 }
 

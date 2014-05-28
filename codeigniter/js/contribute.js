@@ -27,22 +27,25 @@ $(function() {
     $(this).html(timeChange(tweetTime));
   });
 
-  $.getJSON("tweet/button", function(result) {
+  // 読み込みツイート件数を取得する
+  $.getJSON("tweet/tweet_num", function(result) {
     var tweetNum = $(".wrapper").length;
+    var allTweetNum = result['all_tweet_num'];
+
+    // 表示されてるツイート件数よりと読み込みツイート件数の比較
     if (tweetNum < result['tweet_read_num']) {
       $("#readButton").hide();
-    } else {
-      $.getJSON("tweet/tweet_num", function(result) {
-        if(result['tweet_num'] == result['tweet_read_num']) {
-          $("#readButton").hide();
-        }
-      },"json");
+    }
+
+    if (allTweetNum == result['tweet_read_num']) {
+      $("#readButton").hide();
     }
 
     // ツイート投稿時
     $("#tweetButton").click(function() {
-      var offset = $("#offset").val();
+      var page = $("#page").val();
       var text = $("#formText").val();
+
       if (!text) {
         $("#alert").html("何も入力されていません");
       } else {
@@ -54,8 +57,9 @@ $(function() {
           $(".tweet-sentence",div).text(result.content);
         },"json");
         $("#formText").attr("value", "");
-        offset++;
-        $("#page").attr("value", offset);
+        page++;
+        allTweetNum++;
+        $("#page").attr("value", page);
       }
     });
 
@@ -70,12 +74,19 @@ $(function() {
           $(".tweet-sentence",div).text(response[i].content);
         }
 
-          if (response.length < result['tweet_read_num']) {
-            $("#tweetRead").before("<div class='not-tweet'><p>読み込めるツイートはありません<p></div>");
-            $("#readButton").hide();
-          }
+        //　取得ツイート数と読み込みツイート件数の比較
+        if (response.length < result['tweet_read_num']) {
+          $("#tweetRead").before("<div class='not-tweet'><p>読み込めるツイートはありません<p></div>");
+          $("#readButton").hide();
+        }
       },"json");
+
       $.getJSON("tweet/page",{"page":page}, function(pages) {
+        //　ちょうど10件読み込んだ際に、ツイート数を削除する
+        if (allTweetNum == pages['page']) {
+          $("#tweetRead").before("<div class='not-tweet'><p>読み込めるツイートはありません<p></div>");
+          $("#readButton").hide();
+        }
         $("#page").attr("value", pages['page']);
       }, "json");
     });
