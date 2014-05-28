@@ -11,6 +11,7 @@ class Tweet extends CI_Controller
         $this->load->model('user_model');
         $this->load->library('session');
         $this->load->library('form_validation');
+        $this->load->library('typography');
         $this->load->helper('url');
         $this->load->helper('form');
     }
@@ -45,7 +46,6 @@ class Tweet extends CI_Controller
 
      public function insert()
      {
-
         $user_id = $this->session->userdata('user_id');
         $content = $this->input->post('content');
 
@@ -53,7 +53,7 @@ class Tweet extends CI_Controller
             return null;
         }
 
-        $content = $this->security->xss_clean($content);
+        $content = $this->typography->nl2br_except_pre($this->security->xss_clean($content));
         $tweet_id = $this->tweet_model->insert_tweet($content, $user_id);
         $row = $this->tweet_model->tweet_info($tweet_id);
         $this->output->set_content_type('application/json')->set_output(json_encode(array('content' => $content, 'name' => $row['name'], 'time' => $row['create_at'])));

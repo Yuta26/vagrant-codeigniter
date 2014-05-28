@@ -58,7 +58,7 @@ $(function() {
           var div = $("#addWrapper").children().clone().prependTo("#tweetList");
           $(".left",div).text(result.name);
           $(".right",div).text(timeChange(result.time));
-          $(".tweet-sentence",div).text(result.content);
+          $(".tweet-sentence",div).html(result.content);
         },"json");
         $("#formText").attr("value", "");
         page++;
