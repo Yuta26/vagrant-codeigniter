@@ -6,9 +6,9 @@ class User_model extends CI_Model {
         $this->load->database();
     }
 
-    public function login_check($adress, $encryption_pass)
+    public function login_check($address, $encryption_pass)
     {
-        $this->db->select('*')->from('user')->where(array('adress' => $adress, 'password' => $encryption_pass));
+        $this->db->select('*')->from('user')->where(array('address' => $address, 'password' => $encryption_pass));
         $query_check = $this->db->get();
         if ($query_check->num_rows() > 0) {
              return true;
@@ -16,7 +16,7 @@ class User_model extends CI_Model {
         return false;
     }
 
-    public function add_user($name, $adress, $encryption_pass)
+    public function add_user($name, $address, $encryption_pass)
     {
         $this->load->helper('date');
         $format = 'DATE_ATOM';
@@ -26,16 +26,16 @@ class User_model extends CI_Model {
         $data = array(
             'create_at' => $create_at,
             'name' => $name,
-            'adress' => $adress,
+            'address' => $address,
             'password' => $encryption_pass
         );
         $this->db->insert('user', $data);
         return;
     }
 
-    public function get_user_id($adress)
+    public function get_user_id($address)
     {
-        $this->db->select('user_id')->from('user')->where(array('adress' => $adress));
+        $this->db->select('user_id')->from('user')->where(array('address' => $address));
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             foreach ($query->row_array() as $row) {
@@ -54,9 +54,9 @@ class User_model extends CI_Model {
         }
     }
 
-    public function check_adress($str)
+    public function check_address($str)
     {
-        $this->db->select('*')->from('user')->where(array('adress' => $str));
+        $this->db->select('*')->from('user')->where(array('address' => $str));
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return true;

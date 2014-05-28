@@ -11,10 +11,10 @@ body {
 }
 
 .name-label,
-.adress-label,
+.address-label,
 .pass-label,
 .name-input,
-.adress-input, 
+.address-input,
 .pass-input {
   font-size: 25px;
 }
@@ -28,7 +28,7 @@ body {
 }
 
 .name-input,
-.adress-input,
+.address-input,
 .pass-input {
   color: #000;
 }

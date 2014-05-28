@@ -13,9 +13,9 @@ a:hover {
   text-align: center;
 }
 
-.adress-label,
+.address-label,
 .pass-label,
-.adress-input, 
+.address-input,
 .pass-input {
   font-size: 25px;
 }
@@ -24,7 +24,7 @@ a:hover {
   margin-left: 50px;
 }
 
-.adress-input,
+.address-input,
 .pass-input {
   color: #000;
 }

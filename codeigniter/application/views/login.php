@@ -11,11 +11,11 @@
   <div id="container">
     <?php echo validation_errors(); ?>
     <?php echo form_open('login/index'); ?>
-      <label class="adress-label">メールアドレス</label>
+      <label class="address-label">メールアドレス</label>
       <?php echo form_input(array(
-          'name' => 'adress',
-          'value' => set_value('adress'),
-          'class' => 'adress-input')); ?>
+          'name' => 'address',
+          'value' => set_value('address'),
+          'class' => 'address-input')); ?>
       <br />
       <label class="pass-label">パスワード</label>
       <?php echo form_password(array(

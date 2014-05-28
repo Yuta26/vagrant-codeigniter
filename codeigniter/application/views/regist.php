@@ -17,11 +17,11 @@
         'value' => set_value('name'),
         'class' => 'name-input')); ?>
     <br />
-    <label class="adress-label">メールアドレス</label>
+    <label class="address-label">メールアドレス</label>
     <?php echo form_input(array(
-        'name' => 'adress',
-        'value' => set_value('adress'),
-        'class' => 'adress-input')); ?>
+        'name' => 'address',
+        'value' => set_value('address'),
+        'class' => 'address-input')); ?>
     <br />
     <label class="pass-label">パスワード</label>
     <?php echo form_password(array(
