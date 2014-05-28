@@ -18,6 +18,7 @@ function timeChange(tweetTime) {
   return hourTime + "時間前";
 }
 
+
 $(function() {
   $("#addWrapper").hide();
 
