@@ -4,6 +4,7 @@ class User_model extends CI_Model {
     public function __construct()
     {
         $this->load->database();
+        $this->load->helper('date');
     }
 
     public function login_check($address, $encryption_pass)
@@ -18,7 +19,6 @@ class User_model extends CI_Model {
 
     public function add_user($name, $address, $encryption_pass)
     {
-        $this->load->helper('date');
         $format = 'DATE_ATOM';
         $time = time();
         $create_at = standard_date($format, $time); 

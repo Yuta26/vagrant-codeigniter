@@ -9,15 +9,14 @@ class Tweet extends CI_Controller
         parent::__construct();
         $this->load->model('tweet_model');
         $this->load->model('user_model');
-    }
-
-    public function index()
-    {
         $this->load->library('session');
         $this->load->library('form_validation');
         $this->load->helper('url');
         $this->load->helper('form');
+    }
 
+    public function index()
+    {
         $user_id = $this->session->userdata('user_id');
         //　ログインしていない場合、ログイン画面へ遷移
         $check_user = $this->tweet_model->check_user($user_id);
@@ -39,19 +38,12 @@ class Tweet extends CI_Controller
 
     public function logout()
     {
-        $this->load->library('session');
-        $this->load->helper('url');
-        $this->load->helper('form');
-
         $this->session->sess_destroy();
         redirect('/login/','location');
     }
 
      public function insert()
      {
-        $this->load->library('session');
-        $this->load->library('form_validation');
-
         $user_id = $this->session->userdata('user_id');
         $content = $this->input->post('content');
         $content = $this->security->xss_clean($content);
@@ -62,7 +54,6 @@ class Tweet extends CI_Controller
 
      public function read()
      {
-        $this->load->library('session');
         $user_id = $this->session->userdata('user_id');
         $page = $this->input->get('page');
 
@@ -86,7 +77,6 @@ class Tweet extends CI_Controller
 
     public function tweet_num()
     {
-        $this->load->library('session');
         $user_id = $this->session->userdata('user_id');
         $all_tweet_num = $this->tweet_model->db_tweet_num($user_id);
         $result = array(

@@ -4,6 +4,7 @@ class Tweet_model extends CI_Model {
     public function __construct()
     {
         $this->load->database();
+        $this->load->helper('date');
     }
 
     // ユーザーがログインした状態かチェック
@@ -30,8 +31,6 @@ class Tweet_model extends CI_Model {
 
     public function insert_tweet($content, $user_id)
     {
-        $this->load->helper('date');
-
         $format = 'DATE_ATOM';
         $time = time();
         $create_at = standard_date($format, $time);

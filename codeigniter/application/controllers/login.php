@@ -5,17 +5,16 @@ class Login extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('user_model');
-    }
-
-    public function index()
-    {
         $this->load->library('session');
         $this->load->library('form_validation');
         $this->load->helper('url');
         $this->load->helper('email');
         $this->load->helper('form');
         $this->load->helper('security');
+    }
 
+    public function index()
+    {
         $this->form_validation->set_rules('address', 'メールアドレス', 'callback_address_check');
         $this->form_validation->set_rules('password', 'パスワード', 'required');
 
