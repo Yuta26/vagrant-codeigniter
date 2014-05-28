@@ -52,6 +52,9 @@ $(function() {
       } else {
         var str = $("#tweetForm").serialize();
         $.post("tweet/insert",str, function(result) {
+          if (result == null) {
+            return;
+          }
           var div = $("#addWrapper").children().clone().prependTo("#tweetList");
           $(".left",div).text(result.name);
           $(".right",div).text(timeChange(result.time));

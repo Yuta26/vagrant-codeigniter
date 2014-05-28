@@ -26,6 +26,7 @@ class Tweet extends CI_Controller
             return;
         }
 
+        // submitされないとバリデーションチェックはしない
         $this->form_validation->set_rules('content', 'ツイート', 'required');
 
         if ($this->form_validation->run() === false) {
@@ -44,8 +45,14 @@ class Tweet extends CI_Controller
 
      public function insert()
      {
+
         $user_id = $this->session->userdata('user_id');
         $content = $this->input->post('content');
+
+        if ((mb_strlen($content) > 0 and mb_strlen($content) < 140) == false) {
+            return null;
+        }
+
         $content = $this->security->xss_clean($content);
         $tweet_id = $this->tweet_model->insert_tweet($content, $user_id);
         $row = $this->tweet_model->tweet_info($tweet_id);

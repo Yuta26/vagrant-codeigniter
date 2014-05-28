@@ -12,7 +12,6 @@
   <!-- 「もっと見る」でDBからツイートを取り出す際に使用 -->
   <input type="hidden" value="10" id="page" />
   <div id="container">
-    <?php echo validation_errors(); ?>
     <div id="topLine">
       <?php echo form_open('tweet/logout'); ?>
         <div id="userName"><?php echo $name; ?></div>
@@ -25,6 +24,7 @@
     <!-- ツイート機能の実装 -->
     <div id="tweetArea">
     <div id="alert"></div>
+    <?php echo validation_errors(); ?>
     <?php echo form_open('tweetadd', array('id ' => 'tweetForm')); ?>
       <?php
         echo form_textarea(array(
