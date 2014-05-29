@@ -72,9 +72,7 @@ $(function() {
       var page = $("#page").val();
       $.getJSON("tweet/read", {"page": page}, function(response) {
         for (var i = 0 ; i < response.length ; i++) {
-          console.log(response[i]);
-          response['time'] = timeChange(response[i]['time']);
-          console.log(response['time']);
+          response[i]['time'] = timeChange(response[i]['time']);
           $("#readTweet").before(compiled(response[i]));
         }
 
