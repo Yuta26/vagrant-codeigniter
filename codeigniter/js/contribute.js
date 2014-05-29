@@ -28,6 +28,14 @@ $(function() {
     $(this).html(timeChange(tweetTime));
   });
 
+  var compiled = _.template($("#addWrapper").text());
+  var user = { "name": "niwa",
+               "time": "1時間前",
+               "content": "あああああああ"
+  };
+  $("#out-def").html(compiled(user));
+
+
   // 読み込みツイート件数を取得する
   $.getJSON("tweet/tweet_num", function(result) {
     var tweetNum = $(".wrapper").length;

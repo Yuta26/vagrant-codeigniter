@@ -6,6 +6,8 @@
   <link rel="stylesheet" href="<?=base_url();?>css/contribute.css"　type="text/css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
   <script type="text/javascript" src="<?=base_url();?>js/contribute.js"></script>
+  <script type="text/javascript" src="<?=base_url();?>js/underscore.js"></script>
+
   <title>ツイート</title>
 </head>
 <body>
@@ -40,17 +42,31 @@
     </form>
     </br>
 
+    <!-- underscore.jsによるテンプレートの実装 -->
+    <script type="text/template" id="addWrapper">
+      <div id="addWrapper">
+        <div class="wrapper">
+          <div class="left"><%= name %></div>
+          <div class="right"><%= time %></div>
+          <p class="tweet-sentence"><%= content %></p>
+        </div>
+      </div>
+    </script>
+
+
     <div id="tweetViewArea">
     <!-- ツイート投稿による追加 -->
-      <div id="addWrapper">
+<!--       <div id="addWrapper">
         <div class="wrapper">
           <div class="left"></div>
           <div class="right"></div>
           <p class="tweet-sentence"></p>
         </div>
       </div>
+ -->
 
       <div id="tweetList">
+        <div id="out-def"></div>
         <?php foreach ($tweet as $tweet_item):?>
           <div class="wrapper">
             <div class="left">
