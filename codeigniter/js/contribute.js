@@ -20,7 +20,7 @@ function timeChange(tweetTime) {
 
 
 $(function() {
-  $("#addWrapper").hide();
+  var compiled = _.template($("#addWrapper").text());
 
   //　時刻変換処理の記述
   $(".right").each(function() {
@@ -28,24 +28,13 @@ $(function() {
     $(this).html(timeChange(tweetTime));
   });
 
-  var compiled = _.template($("#addWrapper").text());
+  var buttonAppear = $("#page").attr("button");
+  if (buttonAppear == "0") {
+    $("#readButton").hide();
+  }
 
-  // 読み込みツイート件数を取得する
-  $.getJSON("tweet/tweet_num", function(result) {
-    var tweetNum = $(".wrapper").length;
-    var allTweetNum = result['all_tweet_num'];
-
-    // 表示されてるツイート件数よりと読み込みツイート件数の比較
-    if (tweetNum < result['tweet_read_num']) {
-      $("#readButton").hide();
-    }
-
-    if (allTweetNum == result['tweet_read_num']) {
-      $("#readButton").hide();
-    }
-
-    // ツイート投稿時
-    $("#tweetButton").click(function() {
+  // ツイート投稿時
+  $("#tweetButton").click(function() {
       var page = $("#page").val();
       var text = $("#formText").val();
 
@@ -60,37 +49,25 @@ $(function() {
           result['time'] = timeChange(result['time']);
           $("#addTweet").after(compiled(result));
         },"json");
-        $("#formText").attr("value", "");
-        page++;
-        allTweetNum++;
-        $("#page").attr("value", page);
+      $("#formText").attr("value", "");
+      page++;
+      $("#page").attr("value", page);
+    }
+  });
+
+  //　「もっと見る」ボタンの実装
+  $("#readButton").click(function() {
+    var page = $("#page").val();
+    $.getJSON("tweet/read", {"page": page}, function(response) {
+      for (var i = 0 ; i < response['tweet'].length ; i++) {
+        response['tweet'][i]['time'] = timeChange(response['tweet'][i]['time']);
+        $("#readTweet").before(compiled(response['tweet'][i]));
       }
-    });
-
-    //　「もっと見る」ボタンの実装
-    $("#readButton").click(function() {
-      var page = $("#page").val();
-      $.getJSON("tweet/read", {"page": page}, function(response) {
-        for (var i = 0 ; i < response.length ; i++) {
-          response[i]['time'] = timeChange(response[i]['time']);
-          $("#readTweet").before(compiled(response[i]));
-        }
-
-        //　取得ツイート数と読み込みツイート件数の比較
-        if (response.length < result['tweet_read_num']) {
-          $("#tweetRead").before("<div class='not-tweet'><p>読み込めるツイートはありません<p></div>");
-          $("#readButton").hide();
-        }
-      },"json");
-
-      $.getJSON("tweet/page",{"page":page}, function(pages) {
-        //　ちょうど10件読み込んだ際に、ツイート数を削除する
-        if (allTweetNum == pages['page']) {
-          $("#tweetRead").before("<div class='not-tweet'><p>読み込めるツイートはありません<p></div>");
-          $("#readButton").hide();
-        }
-        $("#page").attr("value", pages['page']);
-      }, "json");
-    });
-  }, "json");
+      if (response['button'] == '0') {
+        $("#tweetRead").before("<div class='not-tweet'><p>読み込めるツイートはありません<p></div>");
+        $("#readButton").hide();
+      }
+      $("#page").attr("value", response['page']);
+    }, "json");
+  });
 });

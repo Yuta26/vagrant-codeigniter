@@ -12,7 +12,9 @@
 </head>
 <body>
   <!-- 「もっと見る」でDBからツイートを取り出す際に使用 -->
-  <input type="hidden" value="10" id="page" />
+  <input type="hidden" value="<?php echo $page ?>" id="page"/>
+  <input type="hidden" value="<?php echo $button ?>" id="button"/>
+
   <div id="container">
     <div id="topLine">
       <?php echo form_open('tweet/logout'); ?>

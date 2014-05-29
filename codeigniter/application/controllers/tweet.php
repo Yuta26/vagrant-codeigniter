@@ -27,13 +27,21 @@ class Tweet extends CI_Controller
             return;
         }
 
-        // submitされないとバリデーションチェックはしない
         $this->form_validation->set_rules('content', 'ツイート', 'required');
 
         if ($this->form_validation->run() === false) {
             $user_name = $this->user_model->get_user_name($user_id);
+
             $data['tweet'] = $this->tweet_model->get_tweet($user_id, self::TWEET);
             $data['name'] = $user_name;
+            $data['page'] = self::TWEET;
+
+            $all_tweet_num = $this->tweet_model->all_tweet_num($user_id);
+            if ($all_tweet_num < self::TWEET) {
+                $data['button'] = "0";
+            } else {
+                $data['button'] = '1';
+            }
             $this->load->view('contribute', $data);
         }
     }
@@ -73,24 +81,20 @@ class Tweet extends CI_Controller
                 'time' => $result['create_at']
             );
         }
+        $tweet_num = count($response);
+        $page += self::TWEET;
+        $all_tweet_num = $this->tweet_model->all_tweet_num($user_id);
+        if ($tweet_num < self::TWEET || $page == $all_tweet_num) {
+            $button_appear = '0';
+        } else {
+            $button_appear = '1';
+        }
+
+        $response = array(
+            'tweet' => $response,
+            'page' => $page,
+            'button' => $button_appear
+        );
         $this->output->set_content_type('application/json')->set_output(json_encode($response));
     }
-
-    public function page() {
-        $page = $this->input->get('page');
-        $pages = array('page' => ($page + self::TWEET));
-        $this->output->set_content_type('application/json')->set_output(json_encode($pages));
-    }
-
-    public function tweet_num()
-    {
-        $user_id = $this->session->userdata('user_id');
-        $all_tweet_num = $this->tweet_model->db_tweet_num($user_id);
-        $result = array(
-            'tweet_read_num' => self::TWEET,
-            'all_tweet_num' => $all_tweet_num
-        );
-        $this->output->set_content_type('application/json')->set_output(json_encode($result));
-    }
 }
-
