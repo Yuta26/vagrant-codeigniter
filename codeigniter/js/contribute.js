@@ -29,12 +29,6 @@ $(function() {
   });
 
   var compiled = _.template($("#addWrapper").text());
-  var user = { "name": "niwa",
-               "time": "1時間前",
-               "content": "あああああああ"
-  };
-  $("#out-def").html(compiled(user));
-
 
   // 読み込みツイート件数を取得する
   $.getJSON("tweet/tweet_num", function(result) {
@@ -63,10 +57,8 @@ $(function() {
           if (result == null) {
             return;
           }
-          var div = $("#addWrapper").children().clone().prependTo("#tweetList");
-          $(".left",div).text(result.name);
-          $(".right",div).text(timeChange(result.time));
-          $(".tweet-sentence",div).html(result.content);
+          result['time'] = timeChange(result['time']);
+          $("#addTweet").after(compiled(result));
         },"json");
         $("#formText").attr("value", "");
         page++;
@@ -80,10 +72,10 @@ $(function() {
       var page = $("#page").val();
       $.getJSON("tweet/read", {"page": page}, function(response) {
         for (var i = 0 ; i < response.length ; i++) {
-          var div = $("#addWrapper").children().clone().appendTo("#tweetList");
-          $(".left",div).text(response[i].name);
-          $(".right",div).text(timeChange(response[i].time));
-          $(".tweet-sentence",div).text(response[i].content);
+          console.log(response[i]);
+          response['time'] = timeChange(response[i]['time']);
+          console.log(response['time']);
+          $("#readTweet").before(compiled(response[i]));
         }
 
         //　取得ツイート数と読み込みツイート件数の比較

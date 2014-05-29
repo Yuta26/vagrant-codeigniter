@@ -42,7 +42,7 @@
     </form>
     </br>
 
-    <!-- underscore.jsによるテンプレートの実装 -->
+    <!-- ツイート追加テンプレート -->
     <script type="text/template" id="addWrapper">
       <div id="addWrapper">
         <div class="wrapper">
@@ -53,20 +53,9 @@
       </div>
     </script>
 
-
     <div id="tweetViewArea">
-    <!-- ツイート投稿による追加 -->
-<!--       <div id="addWrapper">
-        <div class="wrapper">
-          <div class="left"></div>
-          <div class="right"></div>
-          <p class="tweet-sentence"></p>
-        </div>
-      </div>
- -->
-
       <div id="tweetList">
-        <div id="out-def"></div>
+        <div id="addTweet"></div>
         <?php foreach ($tweet as $tweet_item):?>
           <div class="wrapper">
             <div class="left">
@@ -80,6 +69,7 @@
             </p>
           </div>
         <?php endforeach ?>
+        <div id="readTweet"></div>
       </div>
       <div id="tweetRead"></div>
       </br>
