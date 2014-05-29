@@ -37,10 +37,10 @@ class Tweet extends CI_Controller
             $data['page'] = self::TWEET;
 
             $all_tweet_num = $this->tweet_model->all_tweet_num($user_id);
-            if ($all_tweet_num < self::TWEET) {
-                $data['button'] = "0";
+            if ($all_tweet_num <= self::TWEET) {
+                $data['button'] = "false";
             } else {
-                $data['button'] = '1';
+                $data['button'] = "true";
             }
             $this->load->view('contribute', $data);
         }
@@ -85,9 +85,9 @@ class Tweet extends CI_Controller
         $page += self::TWEET;
         $all_tweet_num = $this->tweet_model->all_tweet_num($user_id);
         if ($tweet_num < self::TWEET || $page == $all_tweet_num) {
-            $button_appear = '0';
+            $button_appear = "false";
         } else {
-            $button_appear = '1';
+            $button_appear = "true";
         }
 
         $response = array(

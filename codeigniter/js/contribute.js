@@ -28,8 +28,8 @@ $(function() {
     $(this).html(timeChange(tweetTime));
   });
 
-  var buttonAppear = $("#page").attr("button");
-  if (buttonAppear == "0") {
+  var buttonAppear = $("#button").val();
+  if (buttonAppear == "false") {
     $("#readButton").hide();
   }
 
@@ -63,7 +63,7 @@ $(function() {
         response['tweet'][i]['time'] = timeChange(response['tweet'][i]['time']);
         $("#readTweet").before(compiled(response['tweet'][i]));
       }
-      if (response['button'] == '0') {
+      if (response['button'] == "false") {
         $("#tweetRead").before("<div class='not-tweet'><p>読み込めるツイートはありません<p></div>");
         $("#readButton").hide();
       }
