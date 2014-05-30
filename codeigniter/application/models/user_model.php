@@ -30,7 +30,7 @@ class User_model extends CI_Model {
             'password' => $encryption_pass
         );
         $this->db->insert('user', $data);
-        return;
+        return true;
     }
 
     public function get_user_id($address)
