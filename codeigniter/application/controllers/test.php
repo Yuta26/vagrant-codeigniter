@@ -33,30 +33,41 @@ class Test extends CI_Controller
 
 
         // get_user_idテスト
-        // id=1 yuta@yuta.jpがある場合
-        $test_4 = $this->user_model->get_user_id("yuta@yuta.jp");
+        $test_4 = $this->user_model->get_user_id("abc@abc.com");
+        $test_5 = $this->user_model->get_user_id("abc@abcdef.com");
         $data['get_user_id'] = array(
-            $this->unit->run($test_4, is_int(1), "メールアドレスからユーザーIDを取得")
+            $this->unit->run($test_4, 'is_string', "DBの存在するメールアドレスからユーザーIDを取得"),
+            $this->unit->run($test_5, null, "DBに存在しないメールアドレスからユーザーIDを取得")
         );
 
 
         // get_user_nameテスト
-        $test_5 = $this->user_model->get_user_name("1");
+        $user_id = $this->session->userdata('user_id');
+        $test_6 = $this->user_model->get_user_name($user_id);
+        //　存在しないユーザーIDを定義
+        $not_user_id = 0;
+        $test_7 = $this->user_model->get_user_name($not_user_id);
         $data['get_user_name'] = array(
-            $this->unit->run($test_5, "にわ", "ユーザーIDからユーザー名を取得")
+            $this->unit->run($test_6, 'is_string', "ユーザーIDからユーザー名を取得"),
+            $this->unit->run($test_7, null, "存在しないユーザーIDからユーザー名は取得できない")
         );
 
         // check_adressテスト
-        $test_6 = $this->user_model->check_address('abc@abc.com');
-        $test_7 = $this->user_model->check_address('abc@yahoo.com');
+        $test_8 = $this->user_model->check_address('abc@abc.com');
+        $test_9 = $this->user_model->check_address('abc@yahoo.com');
+        $data['check_address'] = array(
+            $this->unit->run($test_8, true, "入力されたアドレスがDBに登録されていれば、新規登録不可"),
+            $this->unit->run($test_9, false, "入力されたアドレスがDBに登録されていなければ、登録可能")
+        );
+
+        Tweet_modelテスト
+
+        check_userテスト
+        $test_9 = $this->tweet_model->check_user("1");
         $data['check_address'] = array(
             $this->unit->run($test_6, true, "入力されたアドレスがDBに登録されていれば、新規登録不可"),
             $this->unit->run($test_7, false, "入力されたアドレスがDBに登録されていなければ、登録可能")
         );
-
-        //
-
-
 
         $this->load->view('test',$data);
     }
