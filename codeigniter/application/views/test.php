@@ -28,6 +28,14 @@
 
 
     <h2>ツイートに関するテスト</h2>
-        <!-- <?php echo $tweet ?> -->
+        <?php foreach ($check_user as $check_user_item):?>
+          <?php echo $check_user_item ?>
+        <?php endforeach ?>
+        <?php echo $get_tweet[0] ?>
+        <?php echo $insert_tweet[0] ?>
+        <?php echo $tweet_info[0] ?>
+        <?php echo $read_tweet[0] ?>
+        <?php echo $all_tweet_num[0] ?>
+
 </body>
 </html>

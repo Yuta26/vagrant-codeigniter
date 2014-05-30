@@ -1,6 +1,13 @@
 <?php
 class Test extends CI_Controller
 {
+    //ツイート読み込み件数　10件
+    const TWEET = 10;
+    // ツイート投稿サンプル文
+    const SAMPLE = "サンプル";
+    const TWEET_ID = 10;
+    const OFFSET = 20;
+
     public function __construct()
     {
         parent::__construct();
@@ -14,7 +21,6 @@ class Test extends CI_Controller
     public function index()
     {
         // user_modelに関するテスト
-
         // add_userテスト
         $test_1 = $this->user_model->add_user("abc", "abc@abc.com", do_hash("aaaaaa"));
         $data['add_user'] = array(
@@ -60,13 +66,44 @@ class Test extends CI_Controller
             $this->unit->run($test_9, false, "入力されたアドレスがDBに登録されていなければ、登録可能")
         );
 
-        Tweet_modelテスト
 
-        check_userテスト
-        $test_9 = $this->tweet_model->check_user("1");
-        $data['check_address'] = array(
-            $this->unit->run($test_6, true, "入力されたアドレスがDBに登録されていれば、新規登録不可"),
-            $this->unit->run($test_7, false, "入力されたアドレスがDBに登録されていなければ、登録可能")
+        //Tweet_modelテスト
+        //check_userテスト
+        $test_10 = $this->tweet_model->check_user($user_id);
+        $test_11 = $this->tweet_model->check_user($user_id + 1);
+        $data['check_user'] = array(
+            $this->unit->run($test_10, true, "セッションにあるuser_idが、DBにあるか確認ある場合、ツイート画面を表示"),
+            $this->unit->run($test_7, false, "セッションにあるuser_idが、DBになければログイン画面を表示する")
+        );
+
+        //get_tweetテスト
+        $test_10 = $this->tweet_model->get_tweet($user_id, self::TWEET);
+        $data['get_tweet'] = array(
+            $this->unit->run($test_10, 'is_array', "ツイート表示画面で初期表示させるツイートを読み込める")
+        );
+
+        //inser_tweetのテスト
+        $test_11 = $this->tweet_model->insert_tweet(self::SAMPLE, $user_id);
+        $data['insert_tweet'] = array(
+            $this->unit->run($test_11, 'is_int', "ツイートを投稿することができる")
+        );
+
+        // tweet_indoテスト
+        $test_12 = $this->tweet_model->tweet_info($test_11);
+        $data['tweet_info'] = array(
+            $this->unit->run($test_12, 'is_array', "投稿したツイートのユーザー名、時刻を取得する")
+        );
+
+        //read_tweetテスト
+        $test_13 = $this->tweet_model->read_tweet($user_id, self::TWEET, self::OFFSET);
+        $data['read_tweet'] = array(
+            $this->unit->run($test_13, 'is_array', "「もっと見る」ボタンでさらにツイートを読み込める")
+        );
+
+        //all_tweet_numテスト
+        $test_14 = $this->tweet_model->all_tweet_num($user_id, self::TWEET, self::OFFSET);
+        $data['all_tweet_num'] = array(
+            $this->unit->run($test_13, 'is_array', "全ツイート数を取得する")
         );
 
         $this->load->view('test',$data);
