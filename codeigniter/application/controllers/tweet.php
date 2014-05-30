@@ -27,23 +27,19 @@ class Tweet extends CI_Controller
             return;
         }
 
-        $this->form_validation->set_rules('content', 'ツイート', 'required');
+        $user_name = $this->user_model->get_user_name($user_id);
 
-        if ($this->form_validation->run() === false) {
-            $user_name = $this->user_model->get_user_name($user_id);
+        $data['tweet'] = $this->tweet_model->get_tweet($user_id, self::TWEET);
+        $data['name'] = $user_name;
+        $data['page'] = self::TWEET;
 
-            $data['tweet'] = $this->tweet_model->get_tweet($user_id, self::TWEET);
-            $data['name'] = $user_name;
-            $data['page'] = self::TWEET;
-
-            $all_tweet_num = $this->tweet_model->all_tweet_num($user_id);
-            if ($all_tweet_num <= self::TWEET) {
-                $data['button'] = "false";
-            } else {
-                $data['button'] = "true";
-            }
-            $this->load->view('contribute', $data);
+        $all_tweet_num = $this->tweet_model->all_tweet_num($user_id);
+        if ($all_tweet_num <= self::TWEET) {
+            $data['button'] = "false";
+        } else {
+            $data['button'] = "true";
         }
+        $this->load->view('contribute', $data);
     }
 
     public function logout()
@@ -57,8 +53,9 @@ class Tweet extends CI_Controller
         $user_id = $this->session->userdata('user_id');
         $content = $this->input->post('content');
 
-        if ((mb_strlen($content) > 0 and mb_strlen($content) < 140) == false) {
-            return null;
+        $this->form_validation->set_rules('content', 'ツイート', 'required|max_length[139]');
+        if ($this->form_validation->run() === false) {
+            return;
         }
 
         $content = $this->typography->nl2br_except_pre($this->security->xss_clean($content));
