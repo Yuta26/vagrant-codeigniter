@@ -1,12 +1,19 @@
 <?php
 class Test extends CI_Controller
 {
-    //ツイート読み込み件数　10件
+    //ツイート読み込み件数を10件と定義
     const TWEET = 10;
     // ツイート投稿サンプル文
     const SAMPLE = "サンプル";
-    const TWEET_ID = 10;
+
+    // 読み込むoffset定義
     const OFFSET = 20;
+
+    //　登録されていないIDを使用するときのサンプル
+    const NO_ID = 1000;
+
+    // sessionへのユーザーIDの登録
+    const USER_ID = 1;
 
     public function __construct()
     {
@@ -21,6 +28,10 @@ class Test extends CI_Controller
     public function index()
     {
         // user_modelに関するテスト
+        $this->session->set_userdata('user_id', self::USER_ID);
+        $user_id = $this->session->userdata('user_id');
+
+
         // add_userテスト
         $test_1 = $this->user_model->add_user("abc", "abc@abc.com", do_hash("aaaaaa"));
         $data['add_user'] = array(
@@ -48,7 +59,6 @@ class Test extends CI_Controller
 
 
         // get_user_nameテスト
-        $user_id = $this->session->userdata('user_id');
         $test_6 = $this->user_model->get_user_name($user_id);
         //　存在しないユーザーIDを定義
         $not_user_id = 0;
@@ -57,6 +67,7 @@ class Test extends CI_Controller
             $this->unit->run($test_6, 'is_string', "ユーザーIDからユーザー名を取得"),
             $this->unit->run($test_7, null, "存在しないユーザーIDからユーザー名は取得できない")
         );
+
 
         // check_adressテスト
         $test_8 = $this->user_model->check_address('abc@abc.com');
@@ -68,11 +79,12 @@ class Test extends CI_Controller
 
 
         //Tweet_modelテスト
+
         //check_userテスト
         $test_10 = $this->tweet_model->check_user($user_id);
-        $test_11 = $this->tweet_model->check_user($user_id + 1);
+        $test_11 = $this->tweet_model->check_user(self::NO_ID);
         $data['check_user'] = array(
-            $this->unit->run($test_10, true, "セッションにあるuser_idが、DBにあるか確認ある場合、ツイート画面を表示"),
+            $this->unit->run($test_10, true, "セッションにあるuser_idが、DBにあるか確認し、ある場合ツイート画面を表示"),
             $this->unit->run($test_7, false, "セッションにあるuser_idが、DBになければログイン画面を表示する")
         );
 
@@ -105,7 +117,6 @@ class Test extends CI_Controller
         $data['all_tweet_num'] = array(
             $this->unit->run($test_13, 'is_array', "全ツイート数を取得する")
         );
-
         $this->load->view('test',$data);
     }
 }
