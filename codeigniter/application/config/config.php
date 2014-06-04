@@ -360,3 +360,9 @@ $config['proxy_ips'] = '';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */
+
+
+$config['memcached'] = array(
+    'hostname' => '127.0.0.1',
+    'port'     => 11211,
+);

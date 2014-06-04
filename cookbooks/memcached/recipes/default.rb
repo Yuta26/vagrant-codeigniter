@@ -7,13 +7,13 @@
 # All rights reserved - Do Not Redistribute
 #
 
-package "ldibevent" do
+package "libevent" do
     action :install
 end
 
 package "memcached" do
     action :install
-end
+end 
 
 service "memcached" do
     action :restart
