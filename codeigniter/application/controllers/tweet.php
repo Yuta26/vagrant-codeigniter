@@ -96,7 +96,7 @@ class Tweet extends CI_Controller
         $user_id = $this->session->userdata('user_id');
         $page = $this->input->get('page');
 
-        $response = $this->cache->get("read_tweet");
+        $response = $this->cache->get('read_tweet'.$page);
         if ($response == false) {
             $data = $this->tweet_model->read_tweet($user_id , self::TWEET, $page);
             $response = array();
@@ -108,7 +108,7 @@ class Tweet extends CI_Controller
                 );
             }
         }
-        $this->cache->save("read_tweet", $response, 60);
+        $this->cache->save('read_tweet_'.$page, $response, 60);
 
         $tweet_num = count($response);
         $page += self::TWEET;
