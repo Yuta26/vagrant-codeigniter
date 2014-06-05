@@ -49,8 +49,6 @@ class Tweet extends CI_Controller
         $user_name = $this->user_model->get_user_name($user_id);
 
         $data['tweet'] = $this->cache->get("first_tweet");
-        // log_message('error',$data['tweet']);
-        var_dump($data['tweet']);
         if ($data['tweet'] === false) {
             $data['tweet'] = $this->tweet_model->get_tweet($user_id, self::TWEET);
             $this->cache->save("first_tweet", $data['tweet'], 60);
