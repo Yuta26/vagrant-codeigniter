@@ -16,5 +16,6 @@ package "memcached" do
 end 
 
 service "memcached" do
-    action :restart
+    action :start
 end
+
