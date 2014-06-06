@@ -3,6 +3,8 @@
 class MyMemcache
 {
     private $cache;
+    const SAVE_TIME = 600;
+    const CACHE_CREATE = 0;
 
     public function __construct()
     {
@@ -23,22 +25,22 @@ class MyMemcache
     public function saveCache($namespace, $key, $value, $option = null)
     {
         $keyName = $this->createCacheKey($namespace, $key);
-        return $this->cache->save($keyName, $value, 360);
+        return $this->cache->save($keyName, $value, self::SAVE_TIME);
     }
 
     public function deleteCache($namespace)
     {
         $namespaceValue = $this->cache->get($namespace);
         $namespaceValue++;
-        return $this->cache->save($namespace, $namespaceValue, 300 );
+        return $this->cache->save($namespace, $namespaceValue, self::SAVE_TIME);
     }
 
     private function createCacheKey($namespace, $key)
     {
         $namespaceKey = $this->cache->get($namespace);
         if ($namespaceKey === false) {
-            $namespaceKey = 0;
-            $this->cache->save($namespace ,$namespaceKey, 300);
+            $namespaceKey = self::CACHE_CREATE;
+            $this->cache->save($namespace ,$namespaceKey, self::SAVE_TIME);
         }
         $k = is_object($key) ? serialize($key) : $key;
         return "$namespace:$namespaceKey:$k";
