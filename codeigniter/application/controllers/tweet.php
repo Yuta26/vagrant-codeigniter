@@ -16,24 +16,8 @@ class Tweet extends CI_Controller
         $this->load->helper('form');
         // 更新されるまでの間、ページを３０分間キャシングする
         $this->output->cache(60);
-        $this->load->driver('cache', array('adapter' => 'memcached'));
+        $this->load->library('mymemcache');
     }
-
-    // memcachedのテストのためのコード
-    public function test()
-    {
-        $this->load->driver('cache', array('adapter' => 'memcached'));
-        $this->cache->save('foo', '111', 3600);
-        $this->cache->save('yuta', 'gagaga', 3600);
-
-        $foo = $this->cache->memcached->get('foo');
-        echo $foo;
-        $yuta = $this->cache->memcached->get('yuta');
-        echo $yuta;
-        // var_dump($this->cache->get('foo'));
-        exit;
-    }
-
 
     public function index()
     {
@@ -48,10 +32,10 @@ class Tweet extends CI_Controller
 
         $user_name = $this->user_model->get_user_name($user_id);
 
-        $data['tweet'] = $this->cache->get("first_tweet");
+        $data['tweet'] = $this->mymemcache->loadCache($user_id ,'first_tweet');
         if ($data['tweet'] === false) {
             $data['tweet'] = $this->tweet_model->get_tweet($user_id, self::TWEET);
-            $this->cache->save("first_tweet", $data['tweet'], 60);
+            $this->mymemcache->saveCache($user_id, 'first_tweet', $data['tweet']);         
         }
         $tweet = $this->tweet_model->get_tweet($user_id, self::TWEET);
         $data['name'] = $user_name;
@@ -85,7 +69,7 @@ class Tweet extends CI_Controller
         $content = $this->typography->nl2br_except_pre($this->security->xss_clean($content));
         $tweet_id = $this->tweet_model->insert_tweet($content, $user_id);
         $row = $this->tweet_model->tweet_info($tweet_id);
-        // $this->cache->save("add_tweet", $content, 60);
+        $this->mymemcache->deleteCache($user_id);
         $this->output->set_content_type('application/json')->set_output(json_encode(array('content' => $content, 'name' => $row['name'], 'time' => $row['create_at'])));
     }
 
@@ -94,7 +78,7 @@ class Tweet extends CI_Controller
         $user_id = $this->session->userdata('user_id');
         $page = $this->input->get('page');
 
-        $response = $this->cache->get('read_tweet'.$page);
+        $response = $this->mymemcache->loadCache($user_id, 'read_tweet'.$page);
         if ($response == false) {
             $data = $this->tweet_model->read_tweet($user_id , self::TWEET, $page);
             $response = array();
@@ -106,7 +90,7 @@ class Tweet extends CI_Controller
                 );
             }
         }
-        $this->cache->save('read_tweet_'.$page, $response, 60);
+        $this->mymemcache->saveCache($user_id, 'read_tweet_'.$page, $response);
 
         $tweet_num = count($response);
         $page += self::TWEET;
