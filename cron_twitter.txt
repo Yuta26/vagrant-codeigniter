@@ -1,2 +1,2 @@
 #twitterサイトのアクセスログ解析
-10 * * * * /home/vagrant/twitter.sh
+00 10 * * * /home/vagrant/shell_twitter.sh
