@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # 日時取得
 LOG_DATE=`LANG=en_US.UTF-8 date -d '1 days ago' '+%d/%b/%Y'`
 # アクセスログのパス
@@ -8,7 +10,7 @@ GET_URL='index.php/login\|index.php/regist\|index.php/tweet\|/'
 TRUNCATE_URL='index.php/tweet/logout\|index.php/tweet/read*\|index.php/tweet/test\|index.php/tweet/insert\|index.php/login/index.*'
 
 # 日時によるログの絞り込みを行い、アクセス解析に使用するログをfilter.txtに格納
-sudo cat ${LOG_PASS}|grep ${LOG_DATE}|cut -d " " -f6-7|grep GET|cut -d " " -f2 > filter.txt
+sudo cat ${LOG_PASS}|grep ${LOG_DATE}|grep GET|cut -d " " -f7 > filter.txt
 # ログアウト、ツイート投稿などの不必要なリクエストを削除してselection.txtに格納
 grep -w ${GET_URL} filter.txt|grep -v ${TRUNCATE_URL}|cut -d "/" -f3|sed 's/^$/login/g' > selection.txt
 # ランキング作成
